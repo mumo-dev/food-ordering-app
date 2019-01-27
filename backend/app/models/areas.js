@@ -1,11 +1,14 @@
 module.exports = function (sequelize, DataTypes) {
-    return sequelize.define("towns", {
+    const area = sequelize.define("areas", {
         id: {
             type:DataTypes.INTEGER,
             autoIncrement:true,
             primaryKey:true
         },
-        name: DataTypes.STRING
+        name: DataTypes.STRING,
+        address: DataTypes.STRING
     });
+
+    return area;
 
 };
