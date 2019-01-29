@@ -1,5 +1,6 @@
 const  Sequelize = require('sequelize');
 
+const AdminModel = require('./models/admin');
 const UserModel = require('./models/user');
 const TownModel = require('./models/town');
 const AreaModel = require('./models/areas');
@@ -19,6 +20,7 @@ const sequelize = new Sequelize(config.database,config.connection.user, config.c
     }
 });
 
+const Admin = AdminModel(sequelize,Sequelize);
 const User = UserModel(sequelize,Sequelize);
 const Town = TownModel(sequelize,Sequelize);
 const Area = AreaModel(sequelize,Sequelize);
@@ -31,6 +33,8 @@ Restaurant.belongsTo(Town); //town_id added to restaurant
 Town.hasMany(Restaurant);
 Restaurant.hasMany(Menu);
 Menu.belongsTo(Restaurant);
+// User.belongsTo(Town);
+User.belongsTo(Area);
 
 
 sequelize.sync({force:false})
@@ -38,10 +42,11 @@ sequelize.sync({force:false})
     .catch(err=> console.log(err));
 
 module.exports ={
-    User,
+    Admin,
     Town,
     Area,
     Restaurant,
-    Menu
+    Menu,
+    User
 };
 
