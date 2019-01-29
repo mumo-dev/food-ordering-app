@@ -1,8 +1,10 @@
 var express = require('express');
-var adminController = require('../controllers/admin');
+var menuController = require('../controllers/api/menu');
 var router = express.Router();
 
-// router.get('/locations/:id', adminController.getLocations);
+router.get('/menus', menuController.findAllMenus);
+router.get('/menus/location/:town_id', menuController.findAllMenusInTown);
+router.get('/menus/:id', menuController.findMenuById);
 
 
 module.exports = router;

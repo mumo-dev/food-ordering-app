@@ -1,0 +1,189 @@
+{{> sidebar }}
+<div id="content-wrapper">
+
+    <div class="container-fluid">
+
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="">Admin</a>
+            </li>
+            <li class="breadcrumb-item ">Menus</li>
+            <li class="breadcrumb-item active">{{{ restaurant.name }}}</li>
+        </ol>
+
+        <!-- add a menu-->
+        {{#if success }}
+            <div class="alert alert-success">
+                {{{ success }}}
+            </div>
+        {{/if}}
+
+        {{#if error }}
+            <div class="alert alert-danger">
+                {{{ error }}}
+            </div>
+        {{/if}}
+
+        <div class="card">
+            <div class="card-header">Add New Menu</div>
+            <div class="card-body">
+
+
+                <form action="/addMenu" method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <input type="hidden" name="restaurantId" value="{{{restaurant.id}}}">
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" name="menuName" placeholder="Name of menu" required>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <input type="number" class="form-control" name="menuPrice" placeholder="Price " required>
+                        </div>
+
+                        <div class="col-sm-5">
+                            <div class="row">
+                                <div class="col-4"><label class="text-secondary">Menu Image:</label></div>
+                                <div class="col-8">
+                                    <input type="file" class="form-control-file" name="menuImage" required
+                                           style="display: inline">
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-sm-6">
+                            <textarea class="form-control" name="menuDescription"
+                                      placeholder="Description of the dish" required></textarea>
+
+                        </div>
+
+                        <div class="col-sm-4 mt-3">
+                            <button type="submit" class="btn btn-primary btn-block">Add</button>
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+        <!--menus-->
+        <hr>
+
+        <div class="row">
+
+            {{#each restaurant.menus}}
+
+                <div class="col-md-4 mb-2">
+                    <div class="card">
+                        <div class="card-header bg-transparent">
+                            <span> {{{ this.name }}}</span>
+                            <span class="float-right text-uppercase text-success" style="font-weight: bold;">
+                                Price: {{{ this.price }}} Kshs</span>
+                        </div>
+                        <div class="card-body">
+                            <!--<div class="card-img">-->
+                            <img src="/images/{{{ this.imageUrl}}}"
+                                 style="height: 150px; width: 100%;">
+                            <!--</div>-->
+
+                            <p> {{{this.description}}}</p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-outline-success" data-toggle="modal" data-target="#updateMenu"
+                                    onclick="updateMenu('{{{this.id}}}', '{{{this.name}}}', '{{{this.price}}}',
+                                            '{{{this.description}}}', '{{{this.imageUrl}}}')">
+                                Update
+                            </button>
+
+                            <form method="post" action="/deleteMenu" class="d-inline">
+
+                                <input type="hidden" value="{{{ this.id}}}" name="id">
+                                <input type="hidden" value="{{{ this.imageUrl}}}" name="imageUrl">
+                                <input type="hidden" value="{{{ this.restaurantId}}}" name="restaurantId">
+                                <button type="submit" class="btn btn-outline-danger float-right">Delete</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+            {{/each}}
+
+
+
+        </div>
+
+
+    </div>
+</div>
+
+<!--modal-->
+<div class="modal fade" id="updateMenu" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update </h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form action="/updateMenu" method="post" enctype="multipart/form-data">
+
+                    <input type="hidden" name="restaurantId" value="{{{restaurant.id}}}">
+                    <input type="hidden" name="menuId" id="uMenuId">
+                    <input type="hidden" name="menuImageUrl" id="uMenuImageUrl">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="uMenuName" name="menuName"
+                               placeholder="Name of menu" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="uMenuPrice" name="menuPrice" placeholder="Price "
+                               required>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="text-secondary">Menu Image: (Don't choose any file if update not required)</label>
+
+                        <input type="file" class="form-control-file" name="menuImage">
+
+                    </div>
+
+
+                    <div class="form-group">
+                            <textarea class="form-control" name="menuDescription"
+                                      placeholder="Description of the dish" id="uMenuDes" required></textarea>
+
+                    </div>
+
+                    <button type="submit" class="btn btn-success   btn-block">UPDATE</button>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function updateMenu(id, name, price, description, image) {
+        $('#uMenuId').val(id);
+        $('#uMenuName').val(name);
+        $('#uMenuPrice').val(price);
+        $('#uMenuDes').val(description);
+        $('#uMenuImageUrl').val(image);
+    }
+</script>
+
+
