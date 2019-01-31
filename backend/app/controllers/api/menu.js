@@ -22,8 +22,24 @@ module.exports = {
             limit: limit
         }).then(menus => {
 
+            const menusItems = menus.rows;
+            let data = [];
+           
+            menusItems.forEach(function(menuItem){
+                 let menu = {
+                    id: menuItem.id,
+                    name: menuItem.name,
+                    description:menuItem.description,
+                    price: menuItem.price,
+                    imageUrl: menuItem.imageUrl,
+                    restaurantName: menuItem.restaurant.name
+                 };
+                 data.push(menu)
+            })
+
+
             res.status(200).json({
-                data: menus.rows,
+                data: data,
                 total: menus.count,
                 hasMore: page * limit < menus.count
             });
