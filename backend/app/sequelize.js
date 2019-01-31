@@ -6,6 +6,8 @@ const TownModel = require('./models/town');
 const AreaModel = require('./models/areas');
 const RestaurantModel = require('./models/restaurant');
 const MenuModel = require('./models/menu');
+const OrderModel = require('./models/orders');
+const OrderItemsModel = require('./models/orderItems');
 
 const config = require('./config/database');
 
@@ -26,6 +28,8 @@ const Town = TownModel(sequelize,Sequelize);
 const Area = AreaModel(sequelize,Sequelize);
 const Restaurant = RestaurantModel(sequelize,Sequelize);
 const Menu = MenuModel(sequelize,Sequelize);
+const Order = OrderModel(sequelize,Sequelize);
+const OrderItems = OrderItemsModel(sequelize,Sequelize);
 
 Area.belongsTo(Town); //town_id added to area
 Town.hasMany(Area); //town_id added to area
@@ -33,7 +37,10 @@ Restaurant.belongsTo(Town); //town_id added to restaurant
 Town.hasMany(Restaurant);
 Restaurant.hasMany(Menu);
 Menu.belongsTo(Restaurant);
-// User.belongsTo(Town);
+Order.belongsTo(User);
+OrderItems.belongsTo(Order);
+Order.hasMany(OrderItems);
+User.hasMany(Order);
 User.belongsTo(Area);
 
 
@@ -47,6 +54,8 @@ module.exports ={
     Area,
     Restaurant,
     Menu,
-    User
+    User,
+    Order,
+    OrderItems
 };
 

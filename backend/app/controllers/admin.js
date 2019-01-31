@@ -64,7 +64,7 @@ module.exports = {
                 res.redirect('/locations');
             })
             .catch((err) => {
-                req.flash('errorMessage', 'Town updated Successfully');
+                req.flash('failureMessage', 'Oops!! something went wrong');
                 res.redirect('/locations');
             })
     },
@@ -81,10 +81,9 @@ module.exports = {
         }).then(town => {
 
             if (!town) {
+
                 res.redirect('/locations');
             } else {
-                //fetch areas in the town;;
-                // Town
 
                 res.render('admin/location_areas', {
                     town
@@ -102,15 +101,18 @@ module.exports = {
         const data = {
             name: req.body.name,
             address: req.body.address,
+            avgDeliveryTime:req.body.avgDeliveryTime,
+            deliveryCost: req.body.deliveryCost,
             townId: req.body.townId
         };
         Area.create(data)
             .then(area => {
-                // add flash message
+                req.flash('successMessage', 'Area added Successfully');
                 res.redirect('/locations/' + area.townId);
             })
             .catch(err => {
-
+                req.flash('failureMessage', 'Oops!, something happened');
+                res.redirect('/locations/' + area.townId);
             })
 
 
@@ -118,7 +120,9 @@ module.exports = {
     updateArea(req, res) {
         const values = {
             name: req.body.areaName,
-            address: req.body.areaAddress
+            address: req.body.areaAddress,
+            avgDeliveryTime:req.body.areaAvgDeliveryTime,
+            deliveryCost: req.body.areaDeliveryCost,
         };
 
         const selector = {
@@ -127,6 +131,7 @@ module.exports = {
 
         Area.update(values, selector)
             .then(() => {
+                req.flash('successMessage', 'Area updated Successfully');
                 res.redirect('/locations/' + req.body.townId)
             })
     },
@@ -141,6 +146,7 @@ module.exports = {
                 }
             })
             .then(() => {
+                req.flash('successMessage', 'Area deleted Successfully');
                 res.redirect('/locations/'+ townId);
             })
             .catch((err) => {
