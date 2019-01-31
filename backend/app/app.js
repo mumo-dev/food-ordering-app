@@ -7,6 +7,7 @@ var logger = require('morgan');
 var passport = require('passport');
 var expressHbs = require('express-handlebars');
 var session = require('express-session');
+
 var flash = require('connect-flash');
 
 require('./config/passport')(passport);
@@ -14,6 +15,7 @@ require('./config/passport')(passport);
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var apiRouter = require('./routes/api');
+var apiAuthRouter = require('./routes/auth.api');
 
 var app = express();
 
@@ -43,6 +45,7 @@ app.use(flash());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api', apiRouter);
+app.use('/api/users', apiAuthRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

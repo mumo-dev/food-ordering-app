@@ -12,7 +12,18 @@
             <li class="breadcrumb-item active">{{{ town.name }}}</li>
         </ol>
 
-        <div class="card w-75">
+        {{#if success }}
+            <div class="alert alert-success">
+                {{{ success }}}
+            </div>
+        {{/if}}
+
+        {{#if error }}
+            <div class="alert alert-danger">
+                {{{ error }}}
+            </div>
+        {{/if}}
+        <div class="card ">
             <div class="card-header">Add new delivery area</div>
             <div class="card-body">
 
@@ -37,7 +48,21 @@
                                    placeholder="Address of the area" required="required" autofocus="autofocus">
                         </div>
 
+
                         <div class="col-sm-4">
+
+                            <input type="number" class="form-control" name="avgDeliveryTime"
+                                   placeholder="Average delivery time (in Minutes)" required="required"
+                                   autofocus="autofocus">
+                        </div>
+
+                        <div class="col-sm-4 mt-2">
+
+                            <input type="number" class="form-control" name="deliveryCost"
+                                   placeholder="Delivery Cost (in Kshs)" required="required" autofocus="autofocus">
+                        </div>
+
+                        <div class="col-sm-4 mt-2">
                             <button type="submit" class="btn btn-primary btn-block">ADD</button>
                         </div>
                     </div>
@@ -55,6 +80,8 @@
                     <tr>
                         <th>Name</th>
                         <th>Address</th>
+                        <th>Average Delivery <br/>Time(Minutes)</th>
+                        <th>Delivery Cost</th>
                         <th>Update</th>
                         <th>Delete</th>
                     </tr>
@@ -64,9 +91,12 @@
                         <tr>
                             <td>{{{this.name}}}</td>
                             <td>{{{this.address}}}</td>
+                            <td>{{{this.avgDeliveryTime}}}</td>
+                            <td>{{{this.deliveryCost}}}</td>
                             <td>
                                 <button data-toggle="modal" data-target="#updateArea"
-                                        onclick="updateArea('{{{this.id}}}', '{{{this.name}}}', '{{{this.address}}}')">
+                                        onclick="updateArea('{{{this.id}}}', '{{{this.name}}}', '{{{this.address}}}',
+                                                '{{{this.avgDeliveryTime}}}', '{{{this.deliveryCost}}}')">
                                     Update
                                 </button>
                             </td>
@@ -120,6 +150,18 @@
                                placeholder="Address of the area" required="required" autofocus="autofocus">
                     </div>
 
+                    <div class="form-group">
+
+                        <input type="number" id="areaAvgDeliveryTime" class="form-control" name="areaAvgDeliveryTime"
+                               placeholder="Average Delivery Time" required="required" autofocus="autofocus">
+                    </div>
+
+                    <div class="form-group">
+
+                        <input type="number" id="areaDeliveryCost" class="form-control" name="areaDeliveryCost"
+                               placeholder="Delivery Cost" required="required" autofocus="autofocus">
+                    </div>
+
                     <div class="col-sm-4">
                         <button type="submit" class="btn btn-primary btn-block">Update</button>
                     </div>
@@ -133,10 +175,12 @@
 </div>
 
 <script>
-    function updateArea(id, name, address) {
+    function updateArea(id, name, address, time, cost) {
 
         $('#areaId').val(id);
         $('#areaName').val(name);
         $('#areaAddress').val(address);
+        $('#areaAvgDeliveryTime').val(time);
+        $('#areaDeliveryCost').val(cost)
     }
 </script>

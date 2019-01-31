@@ -6,7 +6,9 @@ module.exports = function (sequelize, DataTypes) {
             primaryKey:true
         },
         name: DataTypes.STRING,
-        address: DataTypes.STRING
+        address: DataTypes.STRING,
+        avgDeliveryTime: DataTypes.INTEGER,
+        deliveryCost: DataTypes.INTEGER
     });
 
     return area;
