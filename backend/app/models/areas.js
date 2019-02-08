@@ -5,10 +5,7 @@ module.exports = function (sequelize, DataTypes) {
             autoIncrement:true,
             primaryKey:true
         },
-        name: DataTypes.STRING,
-        address: DataTypes.STRING,
-        avgDeliveryTime: DataTypes.INTEGER,
-        deliveryCost: DataTypes.INTEGER
+        name: DataTypes.STRING
     });
 
     return area;

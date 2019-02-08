@@ -8,8 +8,7 @@ module.exports = function (sequelize, DataTypes) {
         },
         name: DataTypes.STRING,
         description: DataTypes.TEXT,
-        price:DataTypes.INTEGER,
-        imageUrl:DataTypes.STRING
+        price:DataTypes.INTEGER
     });
 
 };

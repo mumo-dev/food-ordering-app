@@ -8,7 +8,7 @@
             <li class="breadcrumb-item">
                 <a href="#">Admin</a>
             </li>
-            <li class="breadcrumb-item active">Delivery Locations</li>
+            <li class="breadcrumb-item active">Towns/Cities</li>
         </ol>
 
         <!--<div class="row">-->
@@ -26,7 +26,7 @@
         </div>
         {{/if}}
         <div class="w-75">
-            <form action="/addTown" method="post">
+            <form action="/addTown" method="post"  enctype="multipart/form-data">
                 <div class="form-row mb-3">
                     <div class="col-8">
                         <input type="text" class="form-control" name="town" placeholder="Name of the town" required>
@@ -51,11 +51,12 @@
                     <a href='/locations/{{{this.id}}}'>{{{ this.name }}}</a>
 
                     <span class="float-right">
-                            <button data-toggle="modal" data-target="#updateTown"
+                            <a href="/locations/{{{this.id}}}" class="btn btn-outline-primary">view areas</a>
+                            <button data-toggle="modal" data-target="#updateTown" class="btn btn-outline-success"
                                     onclick="updateTown('{{{this.id}}}', '{{{this.name}}}')">Update</button>
                                 <form method="post" action="/deleteTown" class="d-inline">
                                     <input type="hidden" value="{{{ this.id}}}" name="id">
-                                      <button type="submit">Delete</button>
+                                      <button type="submit" class="btn btn-outline-danger">Delete</button>
                                 </form>
 
                             </span>

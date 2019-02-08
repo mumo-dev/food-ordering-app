@@ -4,12 +4,14 @@ var orderController = require('../controllers/api/order');
 var checkAuth = require('../middleware/check_auth');
 var router = express.Router();
 
-router.get('/menus', menuController.findAllMenus);
+/*router.get('/menus', menuController.findAllMenus);
 router.get('/menus/location/:town_id', menuController.findAllMenusInTown);
-router.get('/menus/:id', menuController.findMenuById);
+router.get('/menus/:id', menuController.findMenuById);*/
 
 router.get('/towns', menuController.findTowns);
-router.get('/towns/:id', menuController.findTownById);
+router.get('/towns/areas/:id', menuController.findAreasInTown);
+router.get('/area/:id/restaurants', menuController.findRestaurantsInArea);
+router.get('/restaurants/:id/menus', menuController.findRestaurantMenus)
 
 router.post('/orders',checkAuth,orderController.saveOrder);
 router.get('/orders',orderController.findAllOrders);

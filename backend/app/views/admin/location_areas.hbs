@@ -43,26 +43,6 @@
                         </div>
 
                         <div class="col-sm-4">
-
-                            <input type="text" class="form-control" name="address"
-                                   placeholder="Address of the area" required="required" autofocus="autofocus">
-                        </div>
-
-
-                        <div class="col-sm-4">
-
-                            <input type="number" class="form-control" name="avgDeliveryTime"
-                                   placeholder="Average delivery time (in Minutes)" required="required"
-                                   autofocus="autofocus">
-                        </div>
-
-                        <div class="col-sm-4 mt-2">
-
-                            <input type="number" class="form-control" name="deliveryCost"
-                                   placeholder="Delivery Cost (in Kshs)" required="required" autofocus="autofocus">
-                        </div>
-
-                        <div class="col-sm-4 mt-2">
                             <button type="submit" class="btn btn-primary btn-block">ADD</button>
                         </div>
                     </div>
@@ -79,9 +59,7 @@
                     <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Address</th>
-                        <th>Average Delivery <br/>Time(Minutes)</th>
-                        <th>Delivery Cost</th>
+
                         <th>Update</th>
                         <th>Delete</th>
                     </tr>
@@ -90,13 +68,10 @@
                     {{#each town.areas}}
                         <tr>
                             <td>{{{this.name}}}</td>
-                            <td>{{{this.address}}}</td>
-                            <td>{{{this.avgDeliveryTime}}}</td>
-                            <td>{{{this.deliveryCost}}}</td>
+
                             <td>
-                                <button data-toggle="modal" data-target="#updateArea"
-                                        onclick="updateArea('{{{this.id}}}', '{{{this.name}}}', '{{{this.address}}}',
-                                                '{{{this.avgDeliveryTime}}}', '{{{this.deliveryCost}}}')">
+                                <button data-toggle="modal" data-target="#updateArea" class="btn btn-outline-success"
+                                        onclick="updateArea('{{{this.id}}}', '{{{this.name}}}')">
                                     Update
                                 </button>
                             </td>
@@ -106,7 +81,7 @@
                                     <input type="hidden" value="{{{ this.townId}}}" name="townId">
                                     <input type="hidden" value="{{{ this.id}}}" name="id">
 
-                                    <button type="submit">Delete</button>
+                                    <button type="submit" class="btn btn-outline-danger">Delete</button>
                                 </form>
                             </td>
 
@@ -144,23 +119,7 @@
                                placeholder="Name of the area" required="required" autofocus="autofocus">
                     </div>
 
-                    <div class="form-group">
 
-                        <input type="text" id="areaAddress" class="form-control" name="areaAddress"
-                               placeholder="Address of the area" required="required" autofocus="autofocus">
-                    </div>
-
-                    <div class="form-group">
-
-                        <input type="number" id="areaAvgDeliveryTime" class="form-control" name="areaAvgDeliveryTime"
-                               placeholder="Average Delivery Time" required="required" autofocus="autofocus">
-                    </div>
-
-                    <div class="form-group">
-
-                        <input type="number" id="areaDeliveryCost" class="form-control" name="areaDeliveryCost"
-                               placeholder="Delivery Cost" required="required" autofocus="autofocus">
-                    </div>
 
                     <div class="col-sm-4">
                         <button type="submit" class="btn btn-primary btn-block">Update</button>
@@ -175,12 +134,10 @@
 </div>
 
 <script>
-    function updateArea(id, name, address, time, cost) {
+    function updateArea(id, name) {
 
         $('#areaId').val(id);
         $('#areaName').val(name);
-        $('#areaAddress').val(address);
-        $('#areaAvgDeliveryTime').val(time);
-        $('#areaDeliveryCost').val(cost)
+
     }
 </script>

@@ -24,27 +24,24 @@
         {{/if}}
 
 
-        <div class="card w-75">
+        <div class="card">
             <div class="card-header">Add new restaurant</div>
             <div class="card-body">
 
 
-                <form action="/addRestaurant" method="post">
+                <form action="/addRestaurant" method="post" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-sm-4">
                             <input type="text" class="form-control" name="name" placeholder="Name" required>
                         </div>
 
-                        <div class="col-sm-4">
-                            <select class="form-control" name="townId">
-                                {{#each towns}}
-                                    <option value="{{{this.id}}}">{{{this.name}}}</option>
-                                {{/each}}
-
-                            </select>
+                        <div class="col-sm-2"><label class="text-secondary">Restaurant Image:</label></div>
+                        <div class="col-sm-3">
+                            <input type="file" class="form-control-file" name="resImage" required
+                                   style="display: inline">
                         </div>
-                        <div class="col-sm-4">
-                            <button type="submit" class="btn btn-primary">Add</button>
+                        <div class="col-sm-3">
+                            <button type="submit" class="btn btn-primary btn-block">Add</button>
                         </div>
 
                     </div>
@@ -54,48 +51,44 @@
             </div>
         </div>
 
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Town</th>
-                        <th>Menu</th>
-                        <th>Update</th>
-                        <th>Delete</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+        <div class="row mt-3">
+
                     {{#each restaurants}}
-                        <tr>
-                            <td>{{{this.name}}}</td>
-                            <td>{{{this.town.name}}}</td>
+                        <div class="col-md-4 mb-2">
+                            <div class="card">
+                                <div class="card-header bg-transparent">
+                                    <span> {{{ this.name }}}</span>
+                                    <span class="float-right">
+                                        <a href="/delivery-locations/{{{this.id}}}">Delivery Locations</a> </span>
+                                </div>
+                                <div class="card-body">
+                                    <!--<div class="card-img">-->
+                                    <img src="/images/{{{ this.image_url}}}"
+                                         style="height: 150px; width: 100%;">
+                                    <!--</div>-->
+                                </div>
+                                <div class="card-footer">
+                                    <button data-toggle="modal" data-target="#updateRestaurant"
+                                            class="btn btn-outline-success"
+                                            onclick="updateRestaurant('{{{this.id}}}', '{{{this.name}}}', '{{{this.image_url}}}')">
+                                        Update
+                                    </button>
 
-                            <td><a href="/restaurants/{{{this.id}}}">View Menu </a></td>
+                                    <form method="post" action="/deleteRestaurant" class="d-inline">
 
-                            <td>
-                                <button data-toggle="modal" data-target="#updateRestaurant"
-                                        onclick="updateRestaurant('{{{this.id}}}', '{{{this.name}}}', '{{{this.town.id}}}')">
-                                    Update
-                                </button>
-                            </td>
+                                        <input type="hidden" value="{{{ this.id}}}" name="id">
 
-                            <td>
+                                        <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                    </form>
 
-                                <form method="post" action="/deleteRestaurant" class="d-inline">
+                                    <a href="/restaurants/{{{this.id}}}" class="btn btn-outline-primary"> Menus </a>
+                                </div>
+                            </div>
+                        </div>
 
-                                    <input type="hidden" value="{{{ this.id}}}" name="id">
 
-                                    <button type="submit">Delete</button>
-                                </form>
-                            </td>
-
-                        </tr>
                     {{/each}}
-                    </tbody>
-                </table>
-            </div>
+
         </div>
     </div>
 </div>
@@ -114,27 +107,27 @@
             </div>
 
             <div class="modal-body">
-                <form action="/updateRestaurant" method="post">
-                    <div class="row">
-                        <input type="hidden" id="resId" name="id">
-                        <div class="col-sm-4">
-                            <input type="text" id="resName" class="form-control" name="name" placeholder="Name"
-                                   required>
-                        </div>
+                <form action="/updateRestaurant" method="post" enctype="multipart/form-data">
 
-                        <div class="col-sm-4">
-                            <select class="form-control" name="townId" required id="resTown">
-                                {{#each towns}}
-                                    <option value="{{{this.id}}}">{{{this.name}}}</option>
-                                {{/each}}
-
-                            </select>
-                        </div>
-                        <div class="col-sm-4">
-                            <button type="submit" class="btn btn-primary">Update</button>
-                        </div>
-
+                    <input type="hidden" id="resId" name="id">
+                    <input type="hidden" name="resImageUrl" id="uresImageUrl">
+                    <div class="form-group">
+                        <input type="text" id="resName" class="form-control" name="name" placeholder="Name"
+                               required>
                     </div>
+                    <div class="form-group">
+                        <label class="text-secondary">Restaurant Image: (Don't choose any file if update not
+                            required)</label>
+
+                        <input type="file" class="form-control-file" name="resImage"
+                               style="display: inline">
+                    </div>
+
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+
 
                 </form>
 
@@ -145,10 +138,10 @@
 </div>
 
 <script>
-    function updateRestaurant(id, name, townId) {
+    function updateRestaurant(id, name, imageUrl) {
         $('#resId').val(id);
         $('#resName').val(name);
-        $('#resTown').val(townId);
+        $('#uresImageUrl').val(imageUrl);
     }
 </script>
 

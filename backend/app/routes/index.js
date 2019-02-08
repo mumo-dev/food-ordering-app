@@ -14,8 +14,8 @@ var storage = multer.diskStorage({
                 throw err;
             }
         });*/
-        if (req.body.menuImageUrl){
-            cb(null,  req.body.menuImageUrl);
+        if (req.body.resImageUrl){
+            cb(null,  req.body.resImageUrl);
             return;
         }
         cb(null,  Date.now()+ '-'+ file.originalname);
@@ -84,13 +84,18 @@ router.post('/deleteArea', adminController.deleteArea);
 
 router.get('/restaurants', restaurantController.index);
 router.get('/restaurants/:id', restaurantController.displayMenu);
-router.post('/addRestaurant', restaurantController.add);
-router.post('/updateRestaurant', restaurantController.update);
+router.post('/addRestaurant',upload.single('resImage'), restaurantController.add);
+//TODO not updating image
+router.post('/updateRestaurant', upload.single('resImage'), restaurantController.update);
 router.post('/deleteRestaurant', restaurantController.delete);
 
-router.post('/addMenu', upload.single('menuImage'), restaurantController.addMenu);
-router.post('/updateMenu', upload.single('menuImage'), restaurantController.updateMenu);
+router.post('/addMenu',  restaurantController.addMenu);
+router.post('/updateMenu', restaurantController.updateMenu);
 router.post('/deleteMenu', restaurantController.deleteMenu);
+router.get('/delivery-locations/:id', restaurantController.getDeliveryLocations);
+router.post('/addDeliveryLocations', restaurantController.addDeliveryLocations);
+router.post('/updateDeliveryLocations/', restaurantController.updateDeliveryLocations);
+router.post('/deleteDelivery', restaurantController.deleteDeliveryLocation);
 
 
 router.get('/logout', function (req, res) {

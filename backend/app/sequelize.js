@@ -28,20 +28,30 @@ const Town = TownModel(sequelize,Sequelize);
 const Area = AreaModel(sequelize,Sequelize);
 const Restaurant = RestaurantModel(sequelize,Sequelize);
 const Menu = MenuModel(sequelize,Sequelize);
-const Order = OrderModel(sequelize,Sequelize);
-const OrderItems = OrderItemsModel(sequelize,Sequelize);
+
+const RestaurantLocations = sequelize.define('restaurantlocations', {
+    time: Sequelize.DataTypes.STRING,
+    fees: Sequelize.DataTypes.DECIMAL
+});
+
+// const Order = OrderModel(sequelize,Sequelize);
+// const OrderItems = OrderItemsModel(sequelize,Sequelize);
 
 Area.belongsTo(Town); //town_id added to area
 Town.hasMany(Area); //town_id added to area
-Restaurant.belongsTo(Town); //town_id added to restaurant
-Town.hasMany(Restaurant);
+Restaurant.belongsToMany(Area, {through: RestaurantLocations});
+Area.belongsToMany(Restaurant, {through: RestaurantLocations});
+Town.hasMany(RestaurantLocations);
+RestaurantLocations.belongsTo(Town);
+RestaurantLocations.belongsTo(Area);
 Restaurant.hasMany(Menu);
+RestaurantLocations.belongsTo(Restaurant);
 Menu.belongsTo(Restaurant);
-Order.belongsTo(User);
-OrderItems.belongsTo(Order);
-Order.hasMany(OrderItems);
-User.hasMany(Order);
-User.belongsTo(Area);
+// Order.belongsTo(User);
+// OrderItems.belongsTo(Order);
+// Order.hasMany(OrderItems);
+// User.hasMany(Order);
+// User.belongsTo(Area);
 
 
 sequelize.sync({force:false})
@@ -55,7 +65,6 @@ module.exports ={
     Restaurant,
     Menu,
     User,
-    Order,
-    OrderItems
+    RestaurantLocations
 };
 

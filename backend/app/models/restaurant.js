@@ -5,7 +5,8 @@ module.exports = function (sequelize, DataTypes) {
             autoIncrement:true,
             primaryKey:true
         },
-        name: DataTypes.STRING
+        name: DataTypes.STRING,
+        image_url:DataTypes.STRING
     });
 
 };

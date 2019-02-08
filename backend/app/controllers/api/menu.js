@@ -2,10 +2,11 @@ const Restaurant = require('../../sequelize').Restaurant;
 const Town = require('../../sequelize').Town;
 const Menu = require('../../sequelize').Menu;
 const Area = require('../../sequelize').Area;
+const RestaurantLocations = require('../../sequelize').RestaurantLocations;
 
 
 module.exports = {
-    findAllMenus(req, res) {
+   /* findAllMenus(req, res) {
         //paginate req.query.page
         // console.log(req.userData);
         const page = req.query.page || 1;
@@ -24,7 +25,7 @@ module.exports = {
 
             const menusItems = menus.rows;
             let data = [];
-           
+
             menusItems.forEach(function(menuItem){
                  let menu = {
                     id: menuItem.id,
@@ -35,7 +36,7 @@ module.exports = {
                     restaurantName: menuItem.restaurant.name
                  };
                  data.push(menu)
-            })
+            });
 
 
             res.status(200).json({
@@ -49,7 +50,6 @@ module.exports = {
         })
 
     },
-
 
     findAllMenusInTown(req, res) {
         const townId = req.params.town_id || 1;
@@ -93,11 +93,11 @@ module.exports = {
             res.status(500).json({error: 'Oops!!, Something went wrong'})
         })
     },
+    */
+
 
     findTowns(req, res) {
-        Town.findAll({
-            include: [Area]
-        }).then(towns => {
+        Town.findAll().then(towns => {
 
             res.status(200).json(towns);
 
@@ -107,19 +107,42 @@ module.exports = {
 
     },
 
-    findTownById(req, res) {
-        const id = req.params.id;
-        Town.findById(id, {
-            include: [Area]
-        }).then(town => {
-            if (town)
-                res.status(200).json(town);
-            else
-                res.status(404).json({message: 'Not found'});
+    findAreasInTown(req, res){
+        Area.findAll({
+            where:{
+                townId: req.params.id
+            }
+        }).then(areas =>{
+            res.status(200).json(areas);
+
         }).catch(err => {
-            res.status(500).json({error: 'Oops!!, Something went wrong'})
+            res.status(500).json({error: err, message: 'Oops!!, Something went wrong'})
+        })
+    },
+
+    findRestaurantsInArea(req, res){
+        RestaurantLocations.findAll({
+            where:{ areaId: req.params.id},
+            include:[ Restaurant]
+        }).then(locs =>{
+            res.status(200).json(locs);
+
+        }).catch(err => {
+            res.status(500).json({error: err, message: 'Oops!!, Something went wrong'})
+        })
+    },
+    findRestaurantMenus(req, res){
+        Menu.findAll({
+            where:{restaurantId: req.params.id}
+        }).then(menus =>{
+            res.status(200).json(menus);
+
+        }).catch(err => {
+            res.status(500).json({error: err, message: 'Oops!!, Something went wrong'})
         })
     }
+
+
 
 
 };

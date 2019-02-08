@@ -100,9 +100,6 @@ module.exports = {
         // if()
         const data = {
             name: req.body.name,
-            address: req.body.address,
-            avgDeliveryTime:req.body.avgDeliveryTime,
-            deliveryCost: req.body.deliveryCost,
             townId: req.body.townId
         };
         Area.create(data)
@@ -119,10 +116,7 @@ module.exports = {
     },
     updateArea(req, res) {
         const values = {
-            name: req.body.areaName,
-            address: req.body.areaAddress,
-            avgDeliveryTime:req.body.areaAvgDeliveryTime,
-            deliveryCost: req.body.areaDeliveryCost,
+            name: req.body.areaName
         };
 
         const selector = {
