@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragments.MenuFragment">
+
+    <ImageView
+        android:id="@+id/rest_image"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorAccent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/burger" />
+
+    <LinearLayout
+        android:id="@+id/top_heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rest_image"
+        android:orientation="vertical"
+        android:paddingStart="30dp"
+        android:paddingLeft="30dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/restaurant_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:text="Java House"
+                android:textColor="@android:color/black"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/restaurant_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:drawableStart="@drawable/ic_timer"
+                android:drawableLeft="@drawable/ic_timer"
+                android:drawablePadding="5dp"
+                android:drawableTint="@color/greyDisabled"
+                android:paddingStart="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingRight="16dp"
+                android:text="10-20 mins"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/greyDisabled" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/delivery_fee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Delivery fee 150 Ksh"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/greyDisabled" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/menu_header"
+        style="?android:listSeparatorTextViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/top_heading"
+        android:gravity="center"
+        android:text="Menu" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/menu_recycler_view"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/menu_header" />
+
+    <ProgressBar
+        android:id="@+id/pg_loading_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+
+    <TextView
+        android:id="@+id/tv_error"
+        style="?android:attr/clickable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/item_clicked_background"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:paddingLeft="30dp"
+        android:paddingTop="4dp"
+        android:paddingRight="30dp"
+        android:paddingBottom="4dp"
+        android:text="Oops! something went wrong \n
+                Click to retry"
+        android:textColor="@android:color/white"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/view_empty_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/top_heading"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <ImageView
+            style="@style/AppTheme.PizzaGuy"
+            android:src="@drawable/pizza_monster" />
+
+        <TextView
+            style="@style/AppTheme.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/message_no_menu"
+            android:textColor="@color/greyDisabled" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

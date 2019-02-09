@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".fragments.DeliveryLocationFragment">
+
+    <LinearLayout
+        android:id="@+id/main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="Choose Delivery Location"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="select town"
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp" />
+
+        <AutoCompleteTextView
+            android:id="@+id/tv_town"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="choose town "
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="select area"
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp" />
+
+        <Spinner
+            android:id="@+id/area_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <Button
+            android:id="@+id/p_btn"
+            android:enabled="false"
+            android:text="Set Delivery Location"
+            android:layout_marginTop="20dp"
+            android:textColor="@android:color/white"
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/pg_loading_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="invisible" />
+
+
+    <TextView
+        android:id="@+id/tv_error"
+        style="?android:attr/clickable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:background="@drawable/item_clicked_background"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:paddingLeft="30dp"
+        android:paddingTop="4dp"
+        android:paddingRight="30dp"
+        android:paddingBottom="4dp"
+        android:text="Oops! something went wrong \n
+                Click to retry"
+        android:textColor="@android:color/white"
+        android:visibility="invisible" />
+
+
+</FrameLayout>

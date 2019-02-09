@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp"
+    tools:context=".fragments.RestaurantsFragment">
+
+    <TextView
+        android:id="@+id/top_heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:text="All Restaurants"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/restuarants_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top_heading" />
+
+    <ProgressBar
+        android:id="@+id/pg_loading_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
+
+    <TextView
+        android:id="@+id/tv_error"
+        style="?android:attr/clickable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/item_clicked_background"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:paddingLeft="30dp"
+        android:paddingTop="4dp"
+        android:paddingRight="30dp"
+        android:paddingBottom="4dp"
+        android:text="Oops! something went wrong \n
+                Click to retry"
+        android:textColor="@android:color/white"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/view_empty_restaurants"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/top_heading"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <ImageView
+            android:src="@drawable/pizza_monster"
+            style="@style/AppTheme.PizzaGuy" />
+
+        <TextView
+            style="@style/AppTheme.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/message_no_restaurants"
+            android:textColor="@color/greyDisabled" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>
