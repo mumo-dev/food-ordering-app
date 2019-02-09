@@ -1,24 +1,22 @@
 package com.android.mumo.swahilicuisine.model;
 
-public class Menu {
+import java.io.Serializable;
+
+public class Menu implements Serializable {
 
     private int id;
     private String name;
     private String description;
-    private int price;
-    private String imageUrl;
-    private String restaurantName;
+    private Double price;
 
-    public Menu() {
-    }
-
-    public Menu(int id, String name, String description, int price, String imageUrl, String restaurantName) {
+    public Menu(int id, String name, String description, Double price) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
-        this.imageUrl = imageUrl;
-        this.restaurantName = restaurantName;
+    }
+
+    public Menu() {
     }
 
     public int getId() {
@@ -45,27 +43,11 @@ public class Menu {
         this.description = description;
     }
 
-    public int getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Double price) {
         this.price = price;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public String getRestaurantName() {
-        return restaurantName;
-    }
-
-    public void setRestaurantName(String restaurantName) {
-        this.restaurantName = restaurantName;
     }
 }

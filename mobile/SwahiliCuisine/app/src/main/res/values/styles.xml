@@ -22,4 +22,14 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="AppTheme.Body1">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+
+    <style name="AppTheme.PizzaGuy">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">150dp</item>
+    </style>
+
 </resources>
