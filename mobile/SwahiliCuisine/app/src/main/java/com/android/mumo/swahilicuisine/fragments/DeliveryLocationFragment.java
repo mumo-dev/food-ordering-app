@@ -22,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.mumo.swahilicuisine.MainActivity;
 import com.android.mumo.swahilicuisine.R;
 import com.android.mumo.swahilicuisine.interfaces.OnLocationSetListener;
 import com.android.mumo.swahilicuisine.model.Area;
@@ -133,7 +134,6 @@ public class DeliveryLocationFragment extends Fragment {
                 PreferenceUtils.storeLocationId(getActivity(), mUserTown.getId());
                 PreferenceUtils.storeLocationAreaId(getActivity(), mUserArea.getId());
                 PreferenceUtils.storeLocationAreaName(getActivity(), mUserArea.getName());
-
                 mListener.onLocationSet();
             }
         });
@@ -149,7 +149,7 @@ public class DeliveryLocationFragment extends Fragment {
                         mUserArea = null;
                         button.setEnabled(false);
 //                        Toast.makeText(DeliveryLocationFragment.this, "Selection Id: "+ mUserTown.getId(), Toast.LENGTH_LONG).show();
-                        areas.removeAll(areas);
+                        areas = new ArrayList<>();
                         fetchArea(mUserTown.getId());
                     }
                 }
@@ -192,6 +192,7 @@ public class DeliveryLocationFragment extends Fragment {
                 uiLoaded();
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
+                        towns = new ArrayList<>();
                         towns.addAll(response.body());
                         Log.i(TAG, "data fetched: " + response.body().size());
 
@@ -203,7 +204,6 @@ public class DeliveryLocationFragment extends Fragment {
             @Override
             public void onFailure(Call<List<Town>> call, Throwable t) {
                 Log.e(TAG, "Api call failed: " + t.getMessage());
-                //
                 uiError();
             }
         });
@@ -241,7 +241,7 @@ public class DeliveryLocationFragment extends Fragment {
             townArray[i] = towns.get(i).getName();
         }
 
-        ArrayAdapter townAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, townArray);
+        ArrayAdapter townAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, townArray);
         townAutoComplete.setAdapter(townAdapter);
         townAutoComplete.setThreshold(1);
 

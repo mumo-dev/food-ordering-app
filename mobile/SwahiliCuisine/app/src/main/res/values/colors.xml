@@ -8,5 +8,6 @@
     <color name="lightBlue">#e3f2fd</color>
     <color name="darkYellow">#f77503</color>
     <color name="greyDisabled">#61000000</color>
+    <color name="blue">#0000ff</color>
 
 </resources>

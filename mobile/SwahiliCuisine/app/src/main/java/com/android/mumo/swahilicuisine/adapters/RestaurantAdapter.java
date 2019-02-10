@@ -45,7 +45,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
     }
 
     public void setRestaurantApiData(List<RestaurantApiData> restaurantApiData) {
-        this.restaurantApiData.addAll(restaurantApiData);
+        this.restaurantApiData = restaurantApiData;
         notifyDataSetChanged();
     }
 

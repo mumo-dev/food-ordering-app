@@ -18,9 +18,12 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
 
     private Context mContext;
     private List<Menu> menuList;
+    private OnMenuSelectedListener mListener;
 
-    public MenuAdapter(Context context) {
+
+    public MenuAdapter(Context context, OnMenuSelectedListener listener) {
         mContext = context;
+        mListener = listener;
         menuList = new ArrayList<>();
     }
 
@@ -37,7 +40,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
     }
 
     public void setMenuList(List<Menu> menuList) {
-        this.menuList.addAll(menuList);
+        this.menuList = menuList;
         notifyDataSetChanged();
     }
 
@@ -46,17 +49,19 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
         return menuList.size();
     }
 
-    public class MenuViewHolder extends RecyclerView.ViewHolder {
+    public class MenuViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView mNameTextView, mDescTv, mPriceTv;
+        private TextView mNameTextView, mDescTv, mPriceTv, mNumberSelected;
         private Menu menu;
+
 
         public MenuViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            itemView.setOnClickListener(this);
             mNameTextView = itemView.findViewById(R.id.menu_name);
             mDescTv = itemView.findViewById(R.id.menu_description);
             mPriceTv = itemView.findViewById(R.id.menu_price);
+            mNumberSelected = itemView.findViewById(R.id.items_selected);
         }
 
         public void bind(Menu menu) {
@@ -64,6 +69,21 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
             mNameTextView.setText(menu.getName());
             mDescTv.setText(menu.getDescription());
             mPriceTv.setText(menu.getPrice() + " Kshs");
+            if(menu.getNoOfItems() == 0){
+                mNumberSelected.setVisibility(View.INVISIBLE);
+            }else {
+                mNumberSelected.setVisibility(View.VISIBLE);
+                mNumberSelected.setText(String.valueOf(menu.getNoOfItems()));
+            }
         }
+
+        @Override
+        public void onClick(View v) {
+            mListener.onMenuItemSelected(this.menu);
+        }
+    }
+
+    public interface OnMenuSelectedListener {
+        void onMenuItemSelected(Menu menu);
     }
 }

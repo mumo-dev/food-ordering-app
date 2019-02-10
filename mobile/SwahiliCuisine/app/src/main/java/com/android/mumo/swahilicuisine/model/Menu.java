@@ -8,6 +8,7 @@ public class Menu implements Serializable {
     private String name;
     private String description;
     private Double price;
+    private int noOfItems;
 
     public Menu(int id, String name, String description, Double price) {
         this.id = id;
@@ -17,6 +18,14 @@ public class Menu implements Serializable {
     }
 
     public Menu() {
+    }
+
+    public int getNoOfItems() {
+        return noOfItems;
+    }
+
+    public void setNoOfItems(int noOfItems) {
+        this.noOfItems = noOfItems;
     }
 
     public int getId() {

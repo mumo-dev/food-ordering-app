@@ -1,6 +1,8 @@
 package com.android.mumo.swahilicuisine.fragments;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,14 +18,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.mumo.swahilicuisine.R;
 import com.android.mumo.swahilicuisine.adapters.MenuAdapter;
 import com.android.mumo.swahilicuisine.model.Menu;
+import com.android.mumo.swahilicuisine.model.Order;
+import com.android.mumo.swahilicuisine.model.OrderItem;
 import com.android.mumo.swahilicuisine.services.ApiService;
 import com.android.mumo.swahilicuisine.services.RetrofitClient;
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -31,7 +37,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class MenuFragment extends Fragment {
+public class MenuFragment extends Fragment implements MenuAdapter.OnMenuSelectedListener {
 
     private static final String ARG_REST_ID = "restId";
     private static final String ARG_REST_TIME = "restTime";
@@ -55,8 +61,12 @@ public class MenuFragment extends Fragment {
     private ProgressBar mLoadingIndicator;
     private TextView errorTv;
     private LinearLayout linearLayout;
+    private TextView custOrderView;
 
     private MenuAdapter menuAdapter;
+    private Order order;
+
+    private List<Menu> menus;
 
 
     public MenuFragment() {
@@ -86,7 +96,12 @@ public class MenuFragment extends Fragment {
             mDeliveryFee = getArguments().getDouble(ARG_REST_FEE);
         }
 
-        menuAdapter = new MenuAdapter(getActivity());
+        menuAdapter = new MenuAdapter(getActivity(), this);
+        order = new Order();
+        order.setDeliveryCost(mDeliveryFee);
+        order.setDeliveryTime(mDeliveryTime);
+        order.setItems(new ArrayList<OrderItem>());
+//        order
     }
 
     @Override
@@ -101,6 +116,23 @@ public class MenuFragment extends Fragment {
         mRestNameTextView = view.findViewById(R.id.restaurant_name);
         mRestTimeTextView = view.findViewById(R.id.restaurant_time);
         mRestFeeTextView = view.findViewById(R.id.delivery_fee);
+        custOrderView = view.findViewById(R.id.cust_order);
+
+        if (order.getItems() == null || order.getItems().size() == 0) {
+            custOrderView.setText("No items on cart yet");
+            custOrderView.setVisibility(View.GONE);
+        }
+
+        custOrderView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OrderDetailsFragment orderDetailsFragment = new OrderDetailsFragment();
+                Bundle args = new Bundle();
+                args.putSerializable("order", order);
+                orderDetailsFragment.setArguments(args);
+                orderDetailsFragment.show(getActivity().getSupportFragmentManager(), orderDetailsFragment.getTag());
+            }
+        });
 
         mRestNameTextView.setText(mRestuarantName);
         mRestTimeTextView.setText(mDeliveryTime);
@@ -165,7 +197,8 @@ public class MenuFragment extends Fragment {
                 uiLoaded();
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
-                        menuAdapter.setMenuList(response.body());
+                        menus = response.body();
+                        menuAdapter.setMenuList(menus);
                     }
                     if (response.body() == null || response.body().size() == 0) {
                         linearLayout.setVisibility(View.VISIBLE);
@@ -178,5 +211,64 @@ public class MenuFragment extends Fragment {
                 uiError(t.getMessage());
             }
         });
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onMenuItemSelected(Menu menu) {
+
+        boolean menuInCurrentOrder = false;
+        List<OrderItem> currentOrderItems = order.getItems();
+        OrderItem newOrderItem = new OrderItem(menu, 1);
+        int index = 0;
+        for (OrderItem orderItem : currentOrderItems) {
+            if (orderItem.getMenu().getId() == menu.getId()) {
+                newOrderItem.setQuantity(orderItem.getQuantity() + 1);
+                menuInCurrentOrder = true;
+                break;
+            }
+            index++;
+        }
+        //if menu in current order, update quantity
+        if (!menuInCurrentOrder) {
+            currentOrderItems.add(newOrderItem);
+        } else {
+            //
+            currentOrderItems.set(index, newOrderItem);
+        }
+
+        //get all items in the order calculate the total cost of items;
+        double totalcost = 0;
+        for (OrderItem item : currentOrderItems) {
+            totalcost += (item.getQuantity() * item.getMenu().getPrice());
+        }
+        int totalItems = 0;
+        for (OrderItem item : currentOrderItems) {
+            totalItems += item.getQuantity();
+        }
+
+        order.setItems(currentOrderItems);
+        if (order.getItems() == null || order.getItems().size() == 0) {
+            custOrderView.setText("No items on cart yet");
+            custOrderView.setVisibility(View.GONE);
+        } else {
+            custOrderView.setText(totalItems + " items.   VIEW ORDER   " + totalcost + "Kshs");
+            custOrderView.setVisibility(View.VISIBLE);
+        }
+
+        //update selected number of items
+        for (Menu menu1: menus){
+            if(menu1.getId()== menu.getId()){
+                menu.setNoOfItems(menu.getNoOfItems()+1);
+                menuAdapter.setMenuList(menus);
+                break;
+            }
+        }
+
+//        order.setItems(n);
     }
 }

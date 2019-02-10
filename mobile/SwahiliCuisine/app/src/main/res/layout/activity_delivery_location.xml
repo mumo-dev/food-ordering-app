@@ -32,7 +32,7 @@
             android:id="@+id/tv_town"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="choose town "
+            android:hint="Enter town name "
             android:textColor="@android:color/black" />
 
         <TextView

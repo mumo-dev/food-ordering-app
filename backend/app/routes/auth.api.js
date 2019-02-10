@@ -27,11 +27,12 @@ router.post('/login', (req, res, next) => {
                 },
                 'secret',
                 {
-                    expiresIn: '720h' //after  a month
+                    expiresIn: '8760h' //after  a year
                 }
             );
 
             return res.status(200).json({
+                id: user.id,
                 email: user.email,
                 phone: user.phone,
                 name: user.name,

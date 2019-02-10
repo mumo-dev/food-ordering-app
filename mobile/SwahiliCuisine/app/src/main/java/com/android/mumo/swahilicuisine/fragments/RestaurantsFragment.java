@@ -11,6 +11,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -42,6 +44,8 @@ public class RestaurantsFragment extends Fragment implements OnRestaurantSelecte
     private int areaId;
 
     OnRestaurantClickListener mListener;
+    InputMethodManager imm;
+    View viewContainer;
 
     public static RestaurantsFragment newInstance() {
         RestaurantsFragment fragment = new RestaurantsFragment();
@@ -65,11 +69,17 @@ public class RestaurantsFragment extends Fragment implements OnRestaurantSelecte
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        //Hide the soft keyboard
+        imm.hideSoftInputFromWindow(viewContainer.getWindowToken(), 0);
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         restaurantAdapter = new RestaurantAdapter(getActivity(), this);
         areaId = PreferenceUtils.getLocationAreaId(getActivity());
-
 
     }
 
@@ -77,7 +87,9 @@ public class RestaurantsFragment extends Fragment implements OnRestaurantSelecte
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.fragment_restaurants, container, false);
+        viewContainer = inflater.inflate(R.layout.fragment_restaurants, container, false);
+        imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        return viewContainer;
     }
 
     @Override
