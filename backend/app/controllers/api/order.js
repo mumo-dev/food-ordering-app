@@ -1,4 +1,8 @@
 const User = require('../../sequelize').User;
+const Area = require('../../sequelize').Area;
+const Town = require('../../sequelize').Town;
+const Menu = require('../../sequelize').Menu;
+const Restaurant = require('../../sequelize').Restaurant;
 const Order = require('../../sequelize').Order;
 const OrderItems = require('../../sequelize').OrderItems;
 const sequelize = require('sequelize');
@@ -10,15 +14,19 @@ module.exports = {
         /*
         {
           user_id:1,
+          cost;
+          areaId
           items:[{
           menu_id,
+          quantity,
           price
-        }]
+        },]
          */
         let orderItems = req.body.items;
         Order.create({
             userId: req.body.userId,
             status: 'placed',
+            areaId: req.body.areaId,
             deliveryCost: req.body.cost
         }).then(order => {
 
@@ -51,39 +59,177 @@ module.exports = {
 
     },
 
-    findAllOrders(req, res){
+    findAllOrders(req, res) {
         Order.findAll({
-            include:[OrderItems]
-        }).then(orders=>{
-            return res.status(200).json(orders)
-        }).catch(err=>{
+            include: [{
+                model: OrderItems,
+                include: [{
+                    model: Menu,
+                    include: [{
+                        model: Restaurant
+                    }]
+                }]
+            },
+                User,
+                {
+                    model: Area,
+                    include: Town
+                }]
+        }).then(orders => {
+            const pOrders = [];
+            orders.forEach(function (order) {
+                const pOrder = {};
+                pOrder['id'] = order.id;
+                pOrder['status'] = order.status;
+                pOrder['deliveryCost'] = order.deliveryCost;
+                pOrder['createdAt'] = order.createdAt;
+                pOrder['userId'] = order.userId;
+                pOrder['userName'] = order.user.name;
+                pOrder['userEmail'] = order.user.email;
+                pOrder['userPhone'] = order.user.phone;
+                pOrder['userEmail'] = order.user.email;
+                pOrder['town'] = order.area.town.name;
+                pOrder['area'] = order.area.name;
+                pOrder['orderItems'] = [];
+
+                order.order_items.forEach(function (item) {
+
+                    const orderItems = {};
+                    orderItems['id'] = item.id;
+                    orderItems['price'] = item.price;
+                    orderItems['quantity'] = item.quantity;
+                    orderItems['createdAt'] = item.createdAt;
+                    orderItems['orderId'] = item.orderId;
+                    orderItems['menuId'] = item.menuId;
+                    orderItems['menuName'] = item.menu.name;
+
+                    pOrder['restaurant'] = item.menu.restaurant.name;
+
+                    pOrder.orderItems.push(orderItems);
+                });
+
+                pOrders.push(pOrder);
+
+            });
+            return res.status(200).json(pOrders)
+        }).catch(err => {
             return res.status(500).json({
                 error: err
             })
         })
     },
 
-    findOrderById(req, res){
-        Order.findById(req.params.id,{
-            include:[OrderItems]
-        }).then(orders=>{
-            return res.status(200).json(orders)
-        }).catch(err=>{
+    findOrderById(req, res) {
+        Order.findById(req.params.id, {
+            include: [{
+                model: OrderItems,
+                include: [{
+                    model: Menu,
+                    include: [{
+                        model: Restaurant
+                    }]
+                }]
+            },
+                User,
+                {
+                    model: Area,
+                    include: Town
+                }]
+        }).then(order => {
+            const pOrder = {};
+            pOrder['id'] = order.id;
+            pOrder['status'] = order.status;
+            pOrder['deliveryCost'] = order.deliveryCost;
+            pOrder['createdAt'] = order.createdAt;
+            pOrder['userId'] = order.userId;
+            pOrder['userName'] =  order.user.name;
+            pOrder['userEmail'] = order.user.email;
+            pOrder['userPhone'] = order.user.phone;
+            pOrder['userEmail'] = order.user.email;
+            pOrder['town'] = order.area.town.name;
+            pOrder['area'] = order.area.name;
+            pOrder['orderItems'] = [];
+
+            order.order_items.forEach(function (item) {
+
+                const orderItems = {};
+                orderItems['id'] = item.id;
+                orderItems['price'] = item.price;
+                orderItems['quantity'] = item.quantity;
+                orderItems['createdAt'] = item.createdAt;
+                orderItems['orderId'] = item.orderId;
+                orderItems['menuId'] = item.menuId;
+                orderItems['menuName'] = item.menu.name;
+
+                pOrder['restaurant'] = item.menu.restaurant.name;
+
+                pOrder.orderItems.push(orderItems);
+            });
+            return res.status(200).json(pOrder)
+        }).catch(err => {
             return res.status(500).json({
                 error: err
             })
         })
     },
 
-    findOrderByUser(req, res){
+    findOrderByUser(req, res) {
         Order.findAll({
-            include:[OrderItems],
-            where:{
+            include: [{
+                model: OrderItems,
+                include: [{
+                    model: Menu,
+                    include: [{
+                        model: Restaurant
+                    }]
+                }]
+            },
+                User,
+                {
+                    model: Area,
+                    include: Town
+                }],
+            where: {
                 userId: req.params.id
             }
-        }).then(orders=>{
-            return res.status(200).json(orders)
-        }).catch(err=>{
+        }).then(orders => {
+            const pOrders = [];
+            orders.forEach(function (order) {
+                const pOrder = {};
+                pOrder['id'] = order.id;
+                pOrder['status'] = order.status;
+                pOrder['deliveryCost'] = order.deliveryCost;
+                pOrder['createdAt'] = order.createdAt;
+                pOrder['userId'] = order.userId;
+                pOrder['userName'] = order.user.name;;
+                pOrder['userEmail'] = order.user.email;
+                pOrder['userPhone'] = order.user.phone;
+                pOrder['userEmail'] = order.user.email;
+                pOrder['town'] = order.area.town.name;
+                pOrder['area'] = order.area.name;
+                pOrder['orderItems'] = [];
+
+                order.order_items.forEach(function (item) {
+
+                    const orderItems = {};
+                    orderItems['id'] = item.id;
+                    orderItems['price'] = item.price;
+                    orderItems['quantity'] = item.quantity;
+                    orderItems['createdAt'] = item.createdAt;
+                    orderItems['orderId'] = item.orderId;
+                    orderItems['menuId'] = item.menuId;
+                    orderItems['menuName'] = item.menu.name;
+
+                    pOrder['restaurant'] = item.menu.restaurant.name;
+
+                    pOrder.orderItems.push(orderItems);
+                });
+
+                pOrders.push(pOrder);
+
+            });
+            return res.status(200).json(pOrders)
+        }).catch(err => {
             return res.status(500).json({
                 error: err
             })

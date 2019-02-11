@@ -30,6 +30,7 @@ var upload = multer({
 
 var adminController = require('../controllers/admin');
 var restaurantController = require('../controllers/restaurant');
+var ordersController = require('../controllers/orders');
 var router = express.Router();
 
 /* GET home page. */
@@ -97,6 +98,9 @@ router.post('/addDeliveryLocations', restaurantController.addDeliveryLocations);
 router.post('/updateDeliveryLocations/', restaurantController.updateDeliveryLocations);
 router.post('/deleteDelivery', restaurantController.deleteDeliveryLocation);
 
+router.get('/orders', ordersController.index);
+router.get('/orders/:id', ordersController.findOrderUsingIndex);
+router.post('/updateOrderStatus', ordersController.updateOrderStatus);
 
 router.get('/logout', function (req, res) {
     req.logout();

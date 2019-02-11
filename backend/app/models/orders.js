@@ -6,6 +6,7 @@ module.exports = function (sequelize, DataTypes) {
             primaryKey:true
         },
         status: DataTypes.STRING,
+        areaId: DataTypes.INTEGER,
         deliveryCost: DataTypes.INTEGER
     });
 

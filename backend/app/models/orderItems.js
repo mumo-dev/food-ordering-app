@@ -5,8 +5,8 @@ module.exports = function (sequelize, DataTypes) {
             autoIncrement: true,
             primaryKey: true
         },
-        menuId: DataTypes.INTEGER,
-        price: DataTypes.INTEGER
+        price: DataTypes.INTEGER,
+        quantity: DataTypes.INTEGER
     });
 
 

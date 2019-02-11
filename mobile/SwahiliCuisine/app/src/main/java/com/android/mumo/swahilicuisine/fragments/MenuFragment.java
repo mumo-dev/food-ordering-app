@@ -1,6 +1,9 @@
 package com.android.mumo.swahilicuisine.fragments;
 
 import android.app.AlertDialog;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
@@ -11,6 +14,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +31,7 @@ import com.android.mumo.swahilicuisine.model.Order;
 import com.android.mumo.swahilicuisine.model.OrderItem;
 import com.android.mumo.swahilicuisine.services.ApiService;
 import com.android.mumo.swahilicuisine.services.RetrofitClient;
+import com.android.mumo.swahilicuisine.viewmodel.OrderViewModel;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -68,6 +73,12 @@ public class MenuFragment extends Fragment implements MenuAdapter.OnMenuSelected
 
     private List<Menu> menus;
 
+    private OrderViewModel model;
+
+    private static final String TAG = "MenuFragment";
+
+    private int totalCost = 0;
+    private int totalItems = 0;
 
     public MenuFragment() {
         // Required empty public constructor
@@ -101,6 +112,9 @@ public class MenuFragment extends Fragment implements MenuAdapter.OnMenuSelected
         order.setDeliveryCost(mDeliveryFee);
         order.setDeliveryTime(mDeliveryTime);
         order.setItems(new ArrayList<OrderItem>());
+
+        model = ViewModelProviders.of(getActivity()).get(OrderViewModel.class);
+        model.setOrderLiveData(order);
 //        order
     }
 
@@ -118,21 +132,35 @@ public class MenuFragment extends Fragment implements MenuAdapter.OnMenuSelected
         mRestFeeTextView = view.findViewById(R.id.delivery_fee);
         custOrderView = view.findViewById(R.id.cust_order);
 
-        if (order.getItems() == null || order.getItems().size() == 0) {
-            custOrderView.setText("No items on cart yet");
-            custOrderView.setVisibility(View.GONE);
-        }
+
+        model.getOrderLiveData().observe(this, new Observer<Order>() {
+            @Override
+            public void onChanged(@Nullable Order order) {
+                if (order.getItems() == null || order.getItems().size() == 0) {
+                    custOrderView.setText("No items on cart yet");
+                    custOrderView.setVisibility(View.GONE);
+                } else {
+                    calculateCost();
+                    custOrderView.setText(totalItems + " items.   VIEW ORDER   " + totalCost + "Kshs");
+                    custOrderView.setVisibility(View.VISIBLE);
+                }
+
+                updateAdapter();
+
+            }
+        });
 
         custOrderView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 OrderDetailsFragment orderDetailsFragment = new OrderDetailsFragment();
-                Bundle args = new Bundle();
+               /* Bundle args = new Bundle();
                 args.putSerializable("order", order);
-                orderDetailsFragment.setArguments(args);
+                orderDetailsFragment.setArguments(args);*/
                 orderDetailsFragment.show(getActivity().getSupportFragmentManager(), orderDetailsFragment.getTag());
             }
         });
+
 
         mRestNameTextView.setText(mRestuarantName);
         mRestTimeTextView.setText(mDeliveryTime);
@@ -242,33 +270,41 @@ public class MenuFragment extends Fragment implements MenuAdapter.OnMenuSelected
         }
 
         //get all items in the order calculate the total cost of items;
-        double totalcost = 0;
-        for (OrderItem item : currentOrderItems) {
-            totalcost += (item.getQuantity() * item.getMenu().getPrice());
-        }
-        int totalItems = 0;
-        for (OrderItem item : currentOrderItems) {
-            totalItems += item.getQuantity();
-        }
+
 
         order.setItems(currentOrderItems);
-        if (order.getItems() == null || order.getItems().size() == 0) {
-            custOrderView.setText("No items on cart yet");
-            custOrderView.setVisibility(View.GONE);
-        } else {
-            custOrderView.setText(totalItems + " items.   VIEW ORDER   " + totalcost + "Kshs");
-            custOrderView.setVisibility(View.VISIBLE);
-        }
+        model.setOrderLiveData(order);
 
-        //update selected number of items
-        for (Menu menu1: menus){
-            if(menu1.getId()== menu.getId()){
-                menu.setNoOfItems(menu.getNoOfItems()+1);
-                menuAdapter.setMenuList(menus);
-                break;
-            }
-        }
 
 //        order.setItems(n);
     }
+
+    private void calculateCost() {
+        totalCost = 0;
+        totalItems = 0;
+        for (OrderItem item : order.getItems()) {
+            if (item.getQuantity() > 0) {
+                totalCost += (item.getQuantity() * item.getMenu().getPrice());
+                totalItems += item.getQuantity();
+            }
+        }
+    }
+
+
+    public void updateAdapter() {
+
+        for (OrderItem item : order.getItems()) {
+            for (Menu menu : menus) {
+                if (item.getMenu().getId() == menu.getId()) {
+                    menu.setNoOfItems(item.getQuantity());
+                }
+            }
+        }
+        menuAdapter.setMenuList(menus);
+
+        //renove all items whose quantity is zero;;
+       /* */
+
+    }
+
 }

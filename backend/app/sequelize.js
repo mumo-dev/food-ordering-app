@@ -34,8 +34,8 @@ const RestaurantLocations = sequelize.define('restaurantlocations', {
     fees: Sequelize.DataTypes.DECIMAL
 });
 
-// const Order = OrderModel(sequelize,Sequelize);
-// const OrderItems = OrderItemsModel(sequelize,Sequelize);
+const Order = OrderModel(sequelize,Sequelize);
+const OrderItems = OrderItemsModel(sequelize,Sequelize);
 
 Area.belongsTo(Town); //town_id added to area
 Town.hasMany(Area); //town_id added to area
@@ -47,9 +47,11 @@ RestaurantLocations.belongsTo(Area);
 Restaurant.hasMany(Menu);
 RestaurantLocations.belongsTo(Restaurant);
 Menu.belongsTo(Restaurant);
-// Order.belongsTo(User);
-// OrderItems.belongsTo(Order);
-// Order.hasMany(OrderItems);
+Order.belongsTo(User);
+Order.belongsTo(Area);
+OrderItems.belongsTo(Order);
+OrderItems.belongsTo(Menu);
+Order.hasMany(OrderItems);
 // User.hasMany(Order);
 // User.belongsTo(Area);
 
@@ -65,6 +67,8 @@ module.exports ={
     Restaurant,
     Menu,
     User,
-    RestaurantLocations
+    RestaurantLocations,
+    Order,
+    OrderItems
 };
 

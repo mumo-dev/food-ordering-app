@@ -35,6 +35,7 @@ import android.widget.Toast;
 import com.android.mumo.swahilicuisine.model.User;
 import com.android.mumo.swahilicuisine.services.ApiService;
 import com.android.mumo.swahilicuisine.services.RetrofitClient;
+import com.android.mumo.swahilicuisine.utils.PreferenceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,10 +73,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private TextView mErrorTextView;
 
+    private boolean fromConfirmOrder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        Intent intent = getIntent();
+        int val = intent.getIntExtra(ConfirmOrderActivity.EXTRA_FROM_COONFIRM_ORDER, 0);
+        if(val != 0){
+            fromConfirmOrder = true;
+        }
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -202,7 +211,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 if (response.isSuccessful() && responseUser != null) {
                     mErrorTextView.setVisibility(View.GONE);
                     Toast.makeText(LoginActivity.this, "Logged in successfully", Toast.LENGTH_LONG).show();
+                    //store user details
+                    PreferenceUtils.storeUserDetails(LoginActivity.this, responseUser);
+                    Intent intent;
+                    if(fromConfirmOrder){
+                         intent = new Intent(LoginActivity.this, ConfirmOrderActivity.class);
+                    }else {
+                        intent = new Intent(LoginActivity.this, MainActivity.class);
+                    }
 
+                    startActivity(intent);
                 } else {
 //                    if (response.code() == 401) {
                     mErrorTextView.setVisibility(View.VISIBLE);

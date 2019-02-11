@@ -1,18 +1,49 @@
 package com.android.mumo.swahilicuisine;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.mumo.swahilicuisine.model.Menu;
+import com.android.mumo.swahilicuisine.model.Menujst;
+import com.android.mumo.swahilicuisine.model.Order;
+import com.android.mumo.swahilicuisine.model.OrderItem;
+import com.android.mumo.swahilicuisine.model.Orderjst;
+import com.android.mumo.swahilicuisine.model.User;
+import com.android.mumo.swahilicuisine.services.ApiService;
+import com.android.mumo.swahilicuisine.services.RetrofitClient;
+import com.android.mumo.swahilicuisine.utils.PreferenceUtils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ConfirmOrderActivity extends AppCompatActivity {
+
+    private static final String TAG = "ConfirmOrderActivity";
 
     private TextView mUserNameTv, mUserPhoneTv, mUserLocationTv, mErrorTextView;
     private Button mPlaceOrderButton;
     private ProgressBar mProgressBar;
+
+    public static final String EXTRA_FROM_COONFIRM_ORDER = "com.android.mumo.swahilicuisine.confrim.orders";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +56,132 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         mErrorTextView = findViewById(R.id.tv_error);
         mPlaceOrderButton = findViewById(R.id.btn_order);
         mProgressBar = findViewById(R.id.progressBar);
+
+        Order order = PreferenceUtils.getUserOrder(this);
+
+        User user = PreferenceUtils.getUserDetails(this);
+        String town = PreferenceUtils.getLocationName(this);
+        String area = PreferenceUtils.getLocationAreaName(this);
+        int areaId = PreferenceUtils.getLocationAreaId(this);
+
+        //if no order, redirect to back
+        if (order == null) {
+            //redirect to main activity;;
+           /* Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);*/
+//            onBackPressed();
+            finish();
+        }
+
+        //if user not logged in, redirect to login
+        if (user == null) {
+           openLoginActivity();
+        }
+
+        mUserNameTv.setText("Name: " + user.getName());
+        mUserPhoneTv.setText("Phone: " + user.getPhone());
+        mUserLocationTv.setText("Location: " + town + " - " + area);
+
+        for (int i = 0; i < order.getItems().size(); i++) {
+            OrderItem item = order.getItems().get(i);
+            if (item.getQuantity() == 0) {
+                order.getItems().remove(i);
+
+            }
+
+        }
+
+        int userId = user.getId();
+        final String token = user.getToken();
+        double cost = order.getDeliveryCost();
+
+        final Orderjst orderjst = new Orderjst();
+
+        orderjst.setUserId(userId);
+        orderjst.setCost(cost);
+        orderjst.setAreaId(areaId);
+
+//            JSONArray menuArray = new JSONArray();
+        List<Menujst> menujsts = new ArrayList<>();
+        for (OrderItem item : order.getItems()) {
+
+            Menujst menujst = new Menujst();
+
+            menujst.setMenuId(item.getMenu().getId());
+            menujst.setQuantity(item.getQuantity());
+            menujst.setPrice(item.getMenu().getPrice());
+
+            menujsts.add(menujst);
+        }
+
+        orderjst.setItems(menujsts);
+
+
+        mPlaceOrderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                storeOrder("JWT " + token, orderjst);
+            }
+        });
+
     }
 
     public void openLogin(View view) {
+        openLoginActivity();
+    }
+
+    private void openLoginActivity() {
         Intent intent = new Intent(this, LoginActivity.class);
+        intent.putExtra(EXTRA_FROM_COONFIRM_ORDER, 100);
         startActivity(intent);
     }
+
+    private void storeOrder(String authorization, Orderjst data) {
+        ApiService api = RetrofitClient.getClient().create(ApiService.class);
+        mProgressBar.setVisibility(View.VISIBLE);
+        api.storeOrder(authorization, data).enqueue(new Callback<JSONObject>() {
+            @Override
+            public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
+                mProgressBar.setVisibility(View.INVISIBLE);
+                Log.i(TAG, "onResponse: " + response.message());
+                if (response.isSuccessful() && response.code() == 200) {
+                    //delete order in shared preferences
+                    PreferenceUtils.deleteOrder(ConfirmOrderActivity.this);
+                    mErrorTextView.setVisibility(View.INVISIBLE);
+                    showAlertDialog();
+                }
+                if (response.code() == 401) {
+                    //redirect to login
+                    /*mErrorTextView.setVisibility(View.VISIBLE);
+                    mErrorTextView.setText(response.message() + "\n" + "Please sign up first");*/
+                    Toast.makeText(ConfirmOrderActivity.this,
+                            "Error saving your order\n Please Login First", Toast.LENGTH_LONG).show();
+                    openLoginActivity();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JSONObject> call, Throwable t) {
+                Log.i(TAG, "onFailure: " + t.getMessage());
+                mProgressBar.setVisibility(View.INVISIBLE);
+                mErrorTextView.setVisibility(View.VISIBLE);
+                mErrorTextView.setText(t.getMessage());
+            }
+        });
+    }
+
+    private void showAlertDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Order Placed successfully");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //redirect to track order activity;;
+            }
+        });
+
+        builder.create();
+        builder.show();
+    }
+
 }

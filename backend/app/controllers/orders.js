@@ -1,0 +1,163 @@
+const User = require('../sequelize').User;
+const Area = require('../sequelize').Area;
+const Town = require('../sequelize').Town;
+const Menu = require('../sequelize').Menu;
+const Restaurant = require('../sequelize').Restaurant;
+const Order = require('../sequelize').Order;
+const OrderItems = require('../sequelize').OrderItems;
+
+module.exports = {
+
+    index(req, res) {
+
+        Order.findAll({
+            include: [{
+                model: OrderItems,
+                include: [{
+                    model: Menu,
+                    include: [{
+                        model: Restaurant
+                    }]
+                }]
+            },
+                User,
+                {
+                    model: Area,
+                    include: Town
+                }]
+        }).then(orders => {
+            const pOrders = [];
+            orders.forEach(function (order) {
+                const pOrder = {};
+                pOrder['id'] = order.id;
+                pOrder['status'] = order.status;
+                pOrder['deliveryCost'] = order.deliveryCost;
+                pOrder['createdAt'] = order.createdAt;
+
+                pOrder['userId'] = order.userId;
+                pOrder['userName'] = order.user.name;
+                pOrder['userEmail'] = order.user.email;
+                pOrder['userPhone'] = order.user.phone;
+                pOrder['userEmail'] = order.user.email;
+                pOrder['town'] = order.area.town.name;
+                pOrder['area'] = order.area.name;
+                pOrder['orderItems'] = [];
+
+                let totalCost = 0;
+                order.order_items.forEach(function (item) {
+
+                    const orderItems = {};
+
+                    orderItems['id'] = item.id;
+                    orderItems['price'] = item.price;
+                    orderItems['quantity'] = item.quantity;
+                    orderItems['createdAt'] = item.createdAt;
+                    orderItems['orderId'] = item.orderId;
+                    orderItems['menuId'] = item.menuId;
+                    orderItems['menuName'] = item.menu.name;
+                    orderItems['subTotal'] = item.price * item.quantity;
+                    pOrder['restaurant'] = item.menu.restaurant.name;
+                    totalCost += orderItems['subTotal'];
+                    pOrder.orderItems.push(orderItems);
+                });
+
+                pOrder["totalCost"] = totalCost;
+                pOrder["cost"] = totalCost + order.deliveryCost;
+                pOrders.push(pOrder);
+
+            });
+            res.render('admin/orders', {
+                orders: pOrders,
+                success: req.flash("successMessage"),
+                error: req.flash('errorMessage')
+            })
+        }).catch(err => {
+            res.render('admin/orders', {
+                error: err
+            })
+        })
+    },
+
+
+    findOrderUsingIndex(req, res) {
+        const index = req.params.id;
+        Order.findById(index, {
+            include: [{
+                model: OrderItems,
+                include: [{
+                    model: Menu,
+                    include: [{
+                        model: Restaurant
+                    }]
+                }]
+            },
+                User,
+                {
+                    model: Area,
+                    include: Town
+                }]
+        }).then(order => {
+            const pOrder = {};
+            pOrder['id'] = order.id;
+            pOrder['status'] = order.status;
+            pOrder['deliveryCost'] = order.deliveryCost;
+            pOrder['createdAt'] = order.createdAt;
+
+            pOrder['userId'] = order.userId;
+            pOrder['userName'] = order.user.name;
+            pOrder['userEmail'] = order.user.email;
+            pOrder['userPhone'] = order.user.phone;
+            pOrder['userEmail'] = order.user.email;
+            pOrder['town'] = order.area.town.name;
+            pOrder['area'] = order.area.name;
+            pOrder['orderItems'] = [];
+
+            let totalCost = 0;
+            order.order_items.forEach(function (item) {
+
+                const orderItems = {};
+
+                orderItems['id'] = item.id;
+                orderItems['price'] = item.price;
+                orderItems['quantity'] = item.quantity;
+                orderItems['createdAt'] = item.createdAt;
+                orderItems['orderId'] = item.orderId;
+                orderItems['menuId'] = item.menuId;
+                orderItems['menuName'] = item.menu.name;
+                orderItems['subTotal'] = item.price * item.quantity;
+                pOrder['restaurant'] = item.menu.restaurant.name;
+                totalCost += orderItems['subTotal'];
+                pOrder.orderItems.push(orderItems);
+            });
+
+            pOrder["totalCost"] = totalCost;
+            pOrder["cost"] = totalCost + order.deliveryCost;
+
+            res.render('admin/order_details', {
+                order: pOrder,
+                success: req.flash("successMessage"),
+                error: req.flash('errorMessage')
+            })
+        }).catch(err => {
+            res.render('admin/order_details', {
+                error: err
+            })
+        })
+    },
+
+    updateOrderStatus(req, res){
+        const values = {
+            status: req.body.status
+        };
+
+        const selector = {
+            where: {id: req.body.orderId}
+        };
+
+        Order.update(values, selector)
+            .then(() => {
+                req.flash('successMessage', 'Order Status updated Successfully');
+                res.redirect('/orders/' + req.body.orderId);
+            })
+    }
+}
