@@ -9,6 +9,7 @@ const MenuModel = require('./models/menu');
 const OrderModel = require('./models/orders');
 const OrderItemsModel = require('./models/orderItems');
 const BlogModel = require('./models/blog');
+const BookModel = require('./models/book');
 
 const config = require('./config/database');
 
@@ -30,6 +31,7 @@ const Area = AreaModel(sequelize,Sequelize);
 const Restaurant = RestaurantModel(sequelize,Sequelize);
 const Menu = MenuModel(sequelize,Sequelize);
 const Blog = BlogModel(sequelize,Sequelize);
+const Book = BookModel(sequelize,Sequelize);
 
 const RestaurantLocations = sequelize.define('restaurantlocations', {
     time: Sequelize.DataTypes.STRING,
@@ -72,6 +74,7 @@ module.exports ={
     RestaurantLocations,
     Order,
     OrderItems,
-    Blog
+    Blog,
+    Book
 };
 

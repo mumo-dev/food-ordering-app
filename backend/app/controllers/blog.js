@@ -84,11 +84,13 @@ module.exports = {
             if (blog) {
                 blog.destroy();
                 req.flash('successMessage', 'Blog Post Deleted');
+                res.redirect('/blog');
 
             } else {
                 req.flash('errorMessage', 'Blog Post Delete Failed');
+                res.redirect('/blog');
             }
-            res.redirect('/blog');
+
         })).catch(err => {
             req.flash('errorMessage', err.message);
             res.redirect('/blog');

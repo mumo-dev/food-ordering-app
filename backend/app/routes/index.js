@@ -6,19 +6,23 @@ var multer = require('multer');
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public/images/')
+        if (file.mimetype === 'application/pdf') {
+            cb(null, 'public/files/books/')
+        } else {
+            cb(null, 'public/images/')
+        }
     },
     filename: function (req, file, cb) {
-       /* sharp().resize(200, 200).toFile(newPath, function(err) {
-            if (err) {
-                throw err;
-            }
-        });*/
-        if (req.body.resImageUrl){
-            cb(null,  req.body.resImageUrl);
+        /* sharp().resize(200, 200).toFile(newPath, function(err) {
+             if (err) {
+                 throw err;
+             }
+         });*/
+        if (req.body.resImageUrl) {
+            cb(null, req.body.resImageUrl);
             return;
         }
-        cb(null,  Date.now()+ '-'+ file.originalname);
+        cb(null, Date.now() + '-' + file.originalname);
     }
 });
 
@@ -27,11 +31,11 @@ var upload = multer({
 });
 
 
-
 var adminController = require('../controllers/admin');
 var restaurantController = require('../controllers/restaurant');
 var ordersController = require('../controllers/orders');
 var blogController = require('../controllers/blog');
+var bookController = require('../controllers/book');
 var router = express.Router();
 
 /* GET home page. */
@@ -86,12 +90,12 @@ router.post('/deleteArea', adminController.deleteArea);
 
 router.get('/restaurants', restaurantController.index);
 router.get('/restaurants/:id', restaurantController.displayMenu);
-router.post('/addRestaurant',upload.single('resImage'), restaurantController.add);
+router.post('/addRestaurant', upload.single('resImage'), restaurantController.add);
 //TODO not updating image
 router.post('/updateRestaurant', upload.single('resImage'), restaurantController.update);
 router.post('/deleteRestaurant', restaurantController.delete);
 
-router.post('/addMenu',  restaurantController.addMenu);
+router.post('/addMenu', restaurantController.addMenu);
 router.post('/updateMenu', restaurantController.updateMenu);
 router.post('/deleteMenu', restaurantController.deleteMenu);
 router.get('/delivery-locations/:id', restaurantController.getDeliveryLocations);
@@ -110,6 +114,12 @@ router.get('/blog/delete/:id', blogController.delete);
 router.get('/blog/create', blogController.showCreateView);
 router.post('/blog', blogController.create);
 router.post('/blog/update', blogController.update);
+
+router.get('/books', bookController.index);
+router.post('/books', upload.single('bookUrl'), bookController.create);
+router.post('/deleteBook', bookController.delete);
+router.post('/updateBooks', upload.single('bookUrl'), bookController.update);
+
 
 router.get('/logout', function (req, res) {
     req.logout();
