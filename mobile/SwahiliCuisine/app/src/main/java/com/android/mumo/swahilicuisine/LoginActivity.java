@@ -201,7 +201,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private void loginUser(User user) {
-        Toast.makeText(LoginActivity.this, "Logged user called", Toast.LENGTH_LONG).show();
         ApiService apiService = RetrofitClient.getClient().create(ApiService.class);
         apiService.logInUser(user).enqueue(new Callback<User>() {
             @Override
