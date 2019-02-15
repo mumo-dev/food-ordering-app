@@ -141,7 +141,7 @@ public class MenuFragment extends Fragment implements MenuAdapter.OnMenuSelected
                     custOrderView.setVisibility(View.GONE);
                 } else {
                     calculateCost();
-                    custOrderView.setText(totalItems + " items.   VIEW ORDER   " + totalCost + "Kshs");
+                    custOrderView.setText(totalItems + " items.   VIEW CART   " + totalCost + "Kshs");
                     custOrderView.setVisibility(View.VISIBLE);
                 }
 

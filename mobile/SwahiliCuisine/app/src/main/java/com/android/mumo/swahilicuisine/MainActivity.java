@@ -1,6 +1,5 @@
 package com.android.mumo.swahilicuisine;
 
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,14 +15,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.mumo.swahilicuisine.fragments.DeliveryLocationFragment;
 import com.android.mumo.swahilicuisine.fragments.MenuFragment;
+import com.android.mumo.swahilicuisine.fragments.OrderFragment;
 import com.android.mumo.swahilicuisine.fragments.RestaurantsFragment;
 import com.android.mumo.swahilicuisine.interfaces.OnLocationSetListener;
 import com.android.mumo.swahilicuisine.interfaces.OnRestaurantClickListener;
+import com.android.mumo.swahilicuisine.model.Restaurant;
+import com.android.mumo.swahilicuisine.utils.PreferenceUtils;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnLocationSetListener, OnRestaurantClickListener {
@@ -51,12 +52,25 @@ public class MainActivity extends AppCompatActivity
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
 
-        int fragments = fragmentManager.getBackStackEntryCount();
+        Intent intent = getIntent();
+        if(intent!= null){
+            String fromOrders = intent.getStringExtra(ConfirmOrderActivity.EXTRA_FROM_CONFIRM_ORDER);
+            if("yes".equals(fromOrders)){
+                OrderFragment orderFragment = new OrderFragment();
+                fragmentTransaction.replace(R.id.fragment_container, orderFragment);
+                fragmentTransaction.commit();
+            }else {
+                DeliveryLocationFragment deliveryLocationFragmentFragement = new DeliveryLocationFragment();
+                fragmentTransaction.add(R.id.fragment_container, deliveryLocationFragmentFragement);
+                fragmentTransaction.commit();
+            }
+        }else {
 
-        DeliveryLocationFragment deliveryLocationFragmentFragement = new DeliveryLocationFragment();
-        fragmentTransaction.add(R.id.fragment_container, deliveryLocationFragmentFragement);
-//        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+
+            DeliveryLocationFragment deliveryLocationFragmentFragement = new DeliveryLocationFragment();
+            fragmentTransaction.add(R.id.fragment_container, deliveryLocationFragmentFragement);
+            fragmentTransaction.commit();
+        }
 
 
     }
@@ -155,7 +169,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_logout) {
+            PreferenceUtils.deleteUser(this);
+            Toast.makeText(this, "Logged out successfully", Toast.LENGTH_LONG).show();
             return true;
         }
 
@@ -171,11 +187,14 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_location) {
             DeliveryLocationFragment fragment = new DeliveryLocationFragment();
             replaceFragment(fragment, "location");
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_restuarants) {
+            RestaurantsFragment fragment = new RestaurantsFragment();
+            replaceFragment(fragment, "restaurant");
+        } else if (id == R.id.nav_order) {
+            OrderFragment fragment = new OrderFragment();
+            replaceFragment(fragment, "orders");
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_account) {
 
         } else if (id == R.id.nav_share) {
 

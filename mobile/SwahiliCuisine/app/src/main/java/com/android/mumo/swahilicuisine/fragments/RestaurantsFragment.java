@@ -1,10 +1,13 @@
 package com.android.mumo.swahilicuisine.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -38,9 +41,12 @@ public class RestaurantsFragment extends Fragment implements OnRestaurantSelecte
     private ProgressBar mLoadingIndicator;
     private TextView errorTv;
     private LinearLayout linearLayout;
+    private TextView locationDetails;
 
 
     private RestaurantAdapter restaurantAdapter;
+
+    private String town, area;
     private int areaId;
 
     OnRestaurantClickListener mListener;
@@ -80,6 +86,11 @@ public class RestaurantsFragment extends Fragment implements OnRestaurantSelecte
         super.onCreate(savedInstanceState);
         restaurantAdapter = new RestaurantAdapter(getActivity(), this);
         areaId = PreferenceUtils.getLocationAreaId(getActivity());
+        town = PreferenceUtils.getLocationName(getActivity());
+        area = PreferenceUtils.getLocationAreaName(getActivity());
+        if (areaId == 0) {
+            getActivity().onBackPressed();
+        }
 
     }
 
@@ -95,6 +106,8 @@ public class RestaurantsFragment extends Fragment implements OnRestaurantSelecte
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
+        locationDetails = view.findViewById(R.id.location_details);
+        locationDetails.setText(town + " - " + area);
         recyclerView = view.findViewById(R.id.restuarants_recycler_view);
         mLoadingIndicator = view.findViewById(R.id.pg_loading_indicator);
         errorTv = view.findViewById(R.id.tv_error);
@@ -104,6 +117,7 @@ public class RestaurantsFragment extends Fragment implements OnRestaurantSelecte
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.HORIZONTAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
         recyclerView.setAdapter(restaurantAdapter);
+
 
         fetchData();
 

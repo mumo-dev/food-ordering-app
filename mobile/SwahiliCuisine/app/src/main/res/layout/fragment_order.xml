@@ -1,41 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="8dp"
-    tools:context=".fragments.RestaurantsFragment">
+    android:padding="16dp"
+    tools:context=".fragments.OrderFragment">
 
-    <TextView
-        android:id="@+id/top_heading"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:gravity="center"
-        android:text="All Restaurants"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
-    <TextView
-        android:id="@+id/location_details"
+        android:weightSum="3">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="#Order ID"
+            style="@style/TextAppearance.AppCompat.Headline"
+            android:textColor="@color/greyDisabled"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Date"
+            style="@style/TextAppearance.AppCompat.Headline"
+            android:textColor="@color/greyDisabled"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Status"
+            style="@style/TextAppearance.AppCompat.Headline"
+            android:textColor="@color/greyDisabled"
+            android:textSize="20sp" />
+    </LinearLayout>
+    <View
+        style="?android:listSeparatorTextViewStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/top_heading"
-        android:gravity="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+        android:layout_height="2dp"/>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/restuarants_recycler_view"
+        android:id="@+id/order_recylerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/location_details" />
+        android:layout_height="wrap_content"/>
 
     <ProgressBar
         android:id="@+id/pg_loading_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         android:layout_gravity="center"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 
     <TextView
@@ -43,8 +62,7 @@
         style="?android:attr/clickable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
         android:background="@drawable/item_clicked_background"
         android:clickable="true"
         android:focusable="true"
@@ -56,10 +74,10 @@
         android:text="Oops! something went wrong \n
                 Click to retry"
         android:textColor="@android:color/white"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <LinearLayout
-        android:id="@+id/view_empty_restaurants"
+        android:id="@+id/view_empty_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/top_heading"
@@ -71,17 +89,20 @@
         tools:visibility="visible">
 
         <ImageView
-            android:src="@drawable/pizza_monster"
-            style="@style/AppTheme.PizzaGuy" />
+            style="@style/AppTheme.PizzaGuy"
+            android:src="@drawable/pizza_monster" />
 
         <TextView
             style="@style/AppTheme.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/message_no_restaurants"
+            android:text="You have not made any orders yet"
             android:textColor="@color/greyDisabled" />
 
     </LinearLayout>
 
 
-</RelativeLayout>
+
+
+
+</LinearLayout>

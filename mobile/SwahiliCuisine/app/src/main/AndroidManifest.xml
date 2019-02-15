@@ -38,12 +38,20 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login"></activity>
+            android:label="@string/title_activity_login" />
         <activity
             android:name=".RegisterActivity"
             android:label="@string/title_activity_register" />
+        <activity android:name=".ConfirmOrderActivity" />
 
-        <activity android:name=".ConfirmOrderActivity"></activity>
+
+        <activity android:name=".OrderDetailActivity"
+            android:label="Order Details"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.android.mumo.swahilicuisine.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

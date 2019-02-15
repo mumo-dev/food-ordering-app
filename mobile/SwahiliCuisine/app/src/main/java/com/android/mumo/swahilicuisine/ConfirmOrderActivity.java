@@ -44,6 +44,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
     private ProgressBar mProgressBar;
 
     public static final String EXTRA_FROM_COONFIRM_ORDER = "com.android.mumo.swahilicuisine.confrim.orders";
+    public static final String EXTRA_FROM_CONFIRM_ORDER = "com.android.mumo.swahilicuisine.confirm.orders";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,7 +149,11 @@ public class ConfirmOrderActivity extends AppCompatActivity {
                     //delete order in shared preferences
                     PreferenceUtils.deleteOrder(ConfirmOrderActivity.this);
                     mErrorTextView.setVisibility(View.INVISIBLE);
-                    showAlertDialog();
+//                    showAlertDialog();
+                    Toast.makeText(ConfirmOrderActivity.this,  "Order Placed successfully",
+                            Toast.LENGTH_LONG).show();
+
+                    redirectToOrdersFragment();
                 }
                 if (response.code() == 401) {
                     //redirect to login
@@ -182,6 +187,12 @@ public class ConfirmOrderActivity extends AppCompatActivity {
 
         builder.create();
         builder.show();
+    }
+
+    private void redirectToOrdersFragment(){
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(EXTRA_FROM_CONFIRM_ORDER,"yes");
+        startActivity(intent);
     }
 
 }
