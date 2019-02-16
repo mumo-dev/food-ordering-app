@@ -1,6 +1,7 @@
 package com.android.mumo.swahilicuisine.services;
 
 import com.android.mumo.swahilicuisine.model.Area;
+import com.android.mumo.swahilicuisine.model.Blog;
 import com.android.mumo.swahilicuisine.model.Menu;
 import com.android.mumo.swahilicuisine.model.Orderjst;
 import com.android.mumo.swahilicuisine.model.RealOrder;
@@ -42,7 +43,9 @@ public interface ApiService {
     @POST("api/orders")
     Call<JSONObject> storeOrder(@Header("Authorization") String authorization, @Body Orderjst data);
 
-    /*/orders/users/:id'*/
     @GET("api/orders/users/{id}")
     Call<List<RealOrder>> getOrders(@Header("Authorization") String authorization, @Path("id") int userId);
+
+    @GET("api/blog")
+    Call<List<Blog>> fetchBlogPosts();
 }

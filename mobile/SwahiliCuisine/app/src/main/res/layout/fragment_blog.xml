@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="2dp"
+    android:paddingBottom="4dp"
+    android:layout_marginTop="2dp"
+    android:paddingTop="4dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/blog_title"
+        android:text="Some Long Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.AppCompat.Headline"
+        android:textSize="18sp"
+        android:paddingBottom="2dp"
+        android:textStyle="italic"/>
+
+    <TextView
+        android:id="@+id/blog_date"
+        android:text="Posted on: "
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/greyDisabled"/>
+
+    <TextView
+        android:id="@+id/blog_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="4"
+        android:ellipsize="end"
+        android:text="@string/long_text"
+        style="@style/TextAppearance.AppCompat.Medium"/>
+    <TextView
+        android:id="@+id/read_more"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="Read More"
+        android:textAllCaps="true"
+        android:padding="4dp"
+        android:textColor="@color/blue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="?android:attr/clickable"/>
+</LinearLayout>

@@ -17,9 +17,9 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Orders" />
         <item
-            android:id="@+id/nav_account"
+            android:id="@+id/nav_blog"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Account" />
+            android:title="Blog" />
     </group>
 
     <item android:title="Communicate">

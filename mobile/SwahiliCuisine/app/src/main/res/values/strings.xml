@@ -28,4 +28,13 @@
     </string>
     <string name="title_activity_register">Sign Up</string>
     <string name="error_invalid_phone">This phone number is invalid. (eg 0701000000)</string>
+    <string name="long_text">
+        So, while you can render an HTML string in an Android TextView, the question becomes,
+        “Should you do this?” For all but the simplest cases, my guess is that you’ll want to use
+        a WebView instead of a TextView, as demonstrated by this example.
+        Note: For this example I used a minSdkVersion of 14 and a targetSdkVersion of 21,
+        and the output is shown in a Nexus 5 emulator.
+        HTML string in an Android TextView. However, this approach has major limitations, a
+        nd you’ll probably want to display your HTML in a WebView instead.
+    </string>
 </resources>

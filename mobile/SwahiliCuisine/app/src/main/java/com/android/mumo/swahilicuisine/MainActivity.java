@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.android.mumo.swahilicuisine.fragments.BlogFragment;
 import com.android.mumo.swahilicuisine.fragments.DeliveryLocationFragment;
 import com.android.mumo.swahilicuisine.fragments.MenuFragment;
 import com.android.mumo.swahilicuisine.fragments.OrderFragment;
@@ -194,8 +195,9 @@ public class MainActivity extends AppCompatActivity
             OrderFragment fragment = new OrderFragment();
             replaceFragment(fragment, "orders");
 
-        } else if (id == R.id.nav_account) {
-
+        } else if (id == R.id.nav_blog) {
+            BlogFragment fragment = new BlogFragment();
+            replaceFragment(fragment, "blog");
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {

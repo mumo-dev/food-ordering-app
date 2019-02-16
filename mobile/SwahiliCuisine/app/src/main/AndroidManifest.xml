@@ -43,11 +43,19 @@
             android:name=".RegisterActivity"
             android:label="@string/title_activity_register" />
         <activity android:name=".ConfirmOrderActivity" />
-
-
-        <activity android:name=".OrderDetailActivity"
+        <activity
+            android:name=".OrderDetailActivity"
             android:label="Order Details"
             android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.android.mumo.swahilicuisine.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".BlogDetailActivity"
+            android:parentActivityName=".MainActivity"
+            android:label="Blog Post">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.android.mumo.swahilicuisine.MainActivity" />
