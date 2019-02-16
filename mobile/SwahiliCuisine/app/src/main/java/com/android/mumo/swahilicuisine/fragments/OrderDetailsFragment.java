@@ -111,7 +111,7 @@ public class OrderDetailsFragment extends BottomSheetDialogFragment implements O
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
-        DividerItemDecoration decoration = new DividerItemDecoration(getContext(), DividerItemDecoration.HORIZONTAL);
+        DividerItemDecoration decoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(decoration);
 
         model.getOrderLiveData().observe(this, new Observer<Order>() {

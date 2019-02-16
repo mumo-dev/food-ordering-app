@@ -26,6 +26,7 @@ import com.android.mumo.swahilicuisine.fragments.RestaurantsFragment;
 import com.android.mumo.swahilicuisine.interfaces.OnLocationSetListener;
 import com.android.mumo.swahilicuisine.interfaces.OnRestaurantClickListener;
 import com.android.mumo.swahilicuisine.model.Restaurant;
+import com.android.mumo.swahilicuisine.model.User;
 import com.android.mumo.swahilicuisine.utils.PreferenceUtils;
 
 public class MainActivity extends AppCompatActivity
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity
 
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
+    NavigationView navigationView;
 
 
     @Override
@@ -48,7 +50,13 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView= (NavigationView) findViewById(R.id.nav_view);
+        Menu menuNav = navigationView.getMenu();
+        MenuItem accountMenuItem = menuNav.findItem(R.id.nav_account);
+        User user = PreferenceUtils.getUserDetails(this);
+        if(user != null){
+            accountMenuItem.setEnabled(false);
+        }
         navigationView.setNavigationItemSelectedListener(this);
 
         fragmentManager = getSupportFragmentManager();
@@ -173,6 +181,9 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
             PreferenceUtils.deleteUser(this);
+            Menu menuNav = navigationView.getMenu();
+            MenuItem accountMenuItem = menuNav.findItem(R.id.nav_account);
+            accountMenuItem.setEnabled(true);
             Toast.makeText(this, "Logged out successfully", Toast.LENGTH_LONG).show();
             return true;
         }
@@ -203,6 +214,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_book) {
             RecipeBooksFragment fragment = new RecipeBooksFragment();
             replaceFragment(fragment, "books");
+        } else if(id == R.id.nav_account){
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

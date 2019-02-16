@@ -114,7 +114,7 @@ public class RestaurantsFragment extends Fragment implements OnRestaurantSelecte
         linearLayout = view.findViewById(R.id.view_empty_restaurants);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.HORIZONTAL);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
         recyclerView.setAdapter(restaurantAdapter);
 
