@@ -8,7 +8,9 @@ const RestaurantLocations = require('../../sequelize').RestaurantLocations;
 module.exports = {
 
     findTowns(req, res) {
-        Town.findAll().then(towns => {
+        Town.findAll({
+            order: [['name', 'ASC']]
+        }).then(towns => {
 
             res.status(200).json(towns);
 
@@ -22,7 +24,8 @@ module.exports = {
         Area.findAll({
             where:{
                 townId: req.params.id
-            }
+            },
+            order: [['name', 'ASC']]
         }).then(areas =>{
             res.status(200).json(areas);
 

@@ -88,6 +88,9 @@ public class DeliveryLocationFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
+        //
+
+
         townAutoComplete = view.findViewById(R.id.tv_town);
         areaDropDown = view.findViewById(R.id.area_spinner);
         mainContent = view.findViewById(R.id.main_content);
@@ -149,13 +152,26 @@ public class DeliveryLocationFragment extends Fragment {
                         mUserArea = null;
                         button.setEnabled(false);
 //                        Toast.makeText(DeliveryLocationFragment.this, "Selection Id: "+ mUserTown.getId(), Toast.LENGTH_LONG).show();
-                        areas = new ArrayList<>();
+
                         fetchArea(mUserTown.getId());
                     }
                 }
             }
         });
 
+        String town = PreferenceUtils.getLocationName(getActivity());
+        int townId = PreferenceUtils.getLocationId(getActivity());
+        String area = PreferenceUtils.getLocationAreaName(getActivity());
+        int areaId = PreferenceUtils.getLocationAreaId(getActivity());
+        if (town != null && townId != 0) {
+            townAutoComplete.setText(town);
+            Town town1 = new Town(townId, town);
+            mUserTown = town1;
+
+            mUserArea = new Area(areaId, area);
+            fetchArea(townId);
+            button.setEnabled(true);
+        }
 
         fetchTowns();
 
@@ -220,6 +236,7 @@ public class DeliveryLocationFragment extends Fragment {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
                         Log.i(TAG, "data fetched: " + response.body().size());
+                        areas = new ArrayList<>();
                         areas.addAll(response.body());
                         //set
                         setAreaAdapter();
@@ -279,5 +296,16 @@ public class DeliveryLocationFragment extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 // Apply the adapter to the spinner
         areaDropDown.setAdapter(adapter);
+
+        String area = PreferenceUtils.getLocationAreaName(getActivity());
+        int areaId = PreferenceUtils.getLocationAreaId(getActivity());
+        if (area != null) {
+            for(int i=0; i< areaArray.length; i++){
+                if(areaArray[i].equals(area)){
+                    areaDropDown.setSelection(i);
+                    break;
+                }
+            }
+        }
     }
 }

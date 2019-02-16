@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity
                         return;
                     }
                 });
-                builder.setMessage("Do u want to leave?");
+                builder.setMessage("Do u want to leave?\n All items in your cart will be lost");
                 AlertDialog dialog = builder.create();
                 dialog.show();
 

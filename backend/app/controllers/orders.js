@@ -6,11 +6,13 @@ const Restaurant = require('../sequelize').Restaurant;
 const Order = require('../sequelize').Order;
 const OrderItems = require('../sequelize').OrderItems;
 
+const moment = require('moment');
+
 module.exports = {
 
     index(req, res) {
 
-        Order.findAll({
+         Order.findAll({
             include: [{
                 model: OrderItems,
                 include: [{
@@ -24,7 +26,8 @@ module.exports = {
                 {
                     model: Area,
                     include: Town
-                }]
+                }],
+                order: [['id', 'DESC']]
         }).then(orders => {
             const pOrders = [];
             orders.forEach(function (order) {
@@ -32,7 +35,7 @@ module.exports = {
                 pOrder['id'] = order.id;
                 pOrder['status'] = order.status;
                 pOrder['deliveryCost'] = order.deliveryCost;
-                pOrder['createdAt'] = order.createdAt;
+                pOrder['createdAt'] = moment(order.createdAt).format('MMM Do YYYY, h:mm:ss')
 
                 pOrder['userId'] = order.userId;
                 pOrder['userName'] = order.user.name;
@@ -51,7 +54,7 @@ module.exports = {
                     orderItems['id'] = item.id;
                     orderItems['price'] = item.price;
                     orderItems['quantity'] = item.quantity;
-                    orderItems['createdAt'] = item.createdAt;
+                    orderItems['createdAt'] = moment(item.createdAt).format('MMM Do YYYY, h:mm:ss')
                     orderItems['orderId'] = item.orderId;
                     orderItems['menuId'] = item.menuId;
                     orderItems['menuName'] = item.menu.name;

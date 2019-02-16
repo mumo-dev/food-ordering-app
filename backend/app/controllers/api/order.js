@@ -13,17 +13,6 @@ const moment = require('moment');
 module.exports = {
 
     saveOrder(req, res) {
-        /*
-        {
-          user_id:1,
-          cost;
-          areaId
-          items:[{
-          menu_id,
-          quantity,
-          price
-        },]
-         */
         let orderItems = req.body.items;
         Order.create({
             userId: req.body.userId,
