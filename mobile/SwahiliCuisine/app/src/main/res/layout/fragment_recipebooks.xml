@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="2dp"
+    android:paddingBottom="4dp"
+    android:layout_marginTop="2dp"
+    android:paddingTop="4dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/book_title"
+        android:text="Some Long Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.AppCompat.Headline"
+        android:textSize="18sp"
+        android:paddingBottom="2dp"
+        android:textStyle="italic"/>
+
+    <TextView
+        android:id="@+id/book_date"
+        android:text="Posted on: "
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/greyDisabled"/>
+
+    <TextView
+        android:id="@+id/book_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/long_text"
+        style="@style/TextAppearance.AppCompat.Medium"/>
+
+    <TextView
+        android:id="@+id/book_download"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableRight="@drawable/ic_file_download"
+        android:drawableEnd="@drawable/ic_file_download"
+        android:padding="5dp"
+        android:drawableTint="@color/darkYellow"
+        android:drawablePadding="10dp"
+        android:textColor="@color/darkYellow"
+        android:clickable="true"
+        android:focusable="true"
+        style="?android:attr/clickable"
+        android:text="Download"/>
+
+
+</LinearLayout>

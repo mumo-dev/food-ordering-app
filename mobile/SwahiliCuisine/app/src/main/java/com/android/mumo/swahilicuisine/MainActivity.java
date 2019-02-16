@@ -21,6 +21,7 @@ import com.android.mumo.swahilicuisine.fragments.BlogFragment;
 import com.android.mumo.swahilicuisine.fragments.DeliveryLocationFragment;
 import com.android.mumo.swahilicuisine.fragments.MenuFragment;
 import com.android.mumo.swahilicuisine.fragments.OrderFragment;
+import com.android.mumo.swahilicuisine.fragments.RecipeBooksFragment;
 import com.android.mumo.swahilicuisine.fragments.RestaurantsFragment;
 import com.android.mumo.swahilicuisine.interfaces.OnLocationSetListener;
 import com.android.mumo.swahilicuisine.interfaces.OnRestaurantClickListener;
@@ -198,10 +199,10 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_blog) {
             BlogFragment fragment = new BlogFragment();
             replaceFragment(fragment, "blog");
-        } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_book) {
+            RecipeBooksFragment fragment = new RecipeBooksFragment();
+            replaceFragment(fragment, "books");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

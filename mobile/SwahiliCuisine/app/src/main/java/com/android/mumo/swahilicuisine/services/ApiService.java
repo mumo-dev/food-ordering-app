@@ -5,6 +5,7 @@ import com.android.mumo.swahilicuisine.model.Blog;
 import com.android.mumo.swahilicuisine.model.Menu;
 import com.android.mumo.swahilicuisine.model.Orderjst;
 import com.android.mumo.swahilicuisine.model.RealOrder;
+import com.android.mumo.swahilicuisine.model.RecipeBook;
 import com.android.mumo.swahilicuisine.model.RestaurantApiData;
 import com.android.mumo.swahilicuisine.model.Town;
 import com.android.mumo.swahilicuisine.model.User;
@@ -48,4 +49,7 @@ public interface ApiService {
 
     @GET("api/blog")
     Call<List<Blog>> fetchBlogPosts();
+
+    @GET("api/books")
+    Call<List<RecipeBook>> fetchRecipeBooks();
 }
