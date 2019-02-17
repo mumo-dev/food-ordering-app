@@ -36,6 +36,7 @@ var restaurantController = require('../controllers/restaurant');
 var ordersController = require('../controllers/orders');
 var blogController = require('../controllers/blog');
 var bookController = require('../controllers/book');
+var Order = require('../sequelize').Order;
 var router = express.Router();
 
 /* GET home page. */
@@ -124,6 +125,16 @@ router.post('/updateBooks', upload.single('bookUrl'), bookController.update);
 router.get('/logout', function (req, res) {
     req.logout();
     res.redirect('/');
+});
+
+router.get('/orders-count', (req, res)=>{
+    Order.findAll({
+        where: { status: 'placed'}
+    }).then(orders=>{
+        return res.status(200).json({
+            count: orders.length
+        })
+    });
 });
 
 

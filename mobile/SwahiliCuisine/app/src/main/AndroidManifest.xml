@@ -65,6 +65,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.android.mumo.swahilicuisine.MainActivity" />
         </activity>
+
+
+        <service
+            android:exported="false"
+            android:name=".utils.SendOrderStatusJobService">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

@@ -21,6 +21,13 @@ import com.android.mumo.swahilicuisine.model.User;
 import com.android.mumo.swahilicuisine.services.ApiService;
 import com.android.mumo.swahilicuisine.services.RetrofitClient;
 import com.android.mumo.swahilicuisine.utils.PreferenceUtils;
+import com.android.mumo.swahilicuisine.utils.SendOrderStatusJobService;
+import com.firebase.jobdispatcher.FirebaseJobDispatcher;
+import com.firebase.jobdispatcher.GooglePlayDriver;
+import com.firebase.jobdispatcher.Job;
+import com.firebase.jobdispatcher.Lifetime;
+import com.firebase.jobdispatcher.RetryStrategy;
+import com.firebase.jobdispatcher.Trigger;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,6 +53,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
     public static final String EXTRA_FROM_COONFIRM_ORDER = "com.android.mumo.swahilicuisine.confrim.orders";
     public static final String EXTRA_FROM_CONFIRM_ORDER = "com.android.mumo.swahilicuisine.confirm.orders";
 
+    User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +68,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
 
         Order order = PreferenceUtils.getUserOrder(this);
 
-        User user = PreferenceUtils.getUserDetails(this);
+         user = PreferenceUtils.getUserDetails(this);
         String town = PreferenceUtils.getLocationName(this);
         String area = PreferenceUtils.getLocationAreaName(this);
         int areaId = PreferenceUtils.getLocationAreaId(this);
@@ -76,7 +84,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
 
         //if user not logged in, redirect to login
         if (user == null) {
-           openLoginActivity();
+            openLoginActivity();
         }
 
         mUserNameTv.setText("Name: " + user.getName());
@@ -147,10 +155,24 @@ public class ConfirmOrderActivity extends AppCompatActivity {
                 Log.i(TAG, "onResponse: " + response.message());
                 if (response.isSuccessful() && response.code() == 200) {
                     //delete order in shared preferences
+                   /* int orderId =0;
+                    String message ="";
+                    try {
+                        JSONObject object = response.body();
+                        orderId = object.getInt("id");
+                        message = object.getString("message");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                   Log.i(TAG, "onResponse id: "+orderId + " message"+ message);*/
+
+                   //orderstatus'+order.userId
+                    scheduleANotificationService("orderstatus"+user.getId());
+
                     PreferenceUtils.deleteOrder(ConfirmOrderActivity.this);
                     mErrorTextView.setVisibility(View.INVISIBLE);
 //                    showAlertDialog();
-                    Toast.makeText(ConfirmOrderActivity.this,  "Order Placed successfully",
+                    Toast.makeText(ConfirmOrderActivity.this, "Order Placed successfully",
                             Toast.LENGTH_LONG).show();
 
                     redirectToOrdersFragment();
@@ -189,10 +211,37 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         builder.show();
     }
 
-    private void redirectToOrdersFragment(){
+    private void redirectToOrdersFragment() {
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(EXTRA_FROM_CONFIRM_ORDER,"yes");
+        intent.putExtra(EXTRA_FROM_CONFIRM_ORDER, "yes");
         startActivity(intent);
+    }
+
+    private void scheduleANotificationService(String key){
+        FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(this));
+        Bundle myExtrasBundle = new Bundle();
+        myExtrasBundle.putString("key", key);
+
+        Job myJob = dispatcher.newJobBuilder()
+                // the JobService that will be called
+                .setService(SendOrderStatusJobService.class)
+                // uniquely identifies the job
+                .setTag("order_notification")
+                // one-off job
+                .setRecurring(false)
+                // don't persist past a device reboot
+                .setLifetime(Lifetime.FOREVER)
+                // start between 0 and 60 seconds from now
+
+                // don't overwrite an existing job with the same tag
+                .setReplaceCurrent(false)
+
+                // constraints that need to be satisfied for the job to run
+
+                .setExtras(myExtrasBundle)
+                .build();
+
+        dispatcher.mustSchedule(myJob);
     }
 
 }

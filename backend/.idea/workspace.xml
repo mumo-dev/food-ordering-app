@@ -5,9 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="294eb3b4-3e26-4a87-ae9b-4bac7b5a0dea" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/app/controllers/orders.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/orders.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/js/socket.io.slim.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../mobile/SwahiliCuisine/app/src/main/java/com/android/mumo/swahilicuisine/utils/NotificationUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../mobile/SwahiliCuisine/app/src/main/java/com/android/mumo/swahilicuisine/utils/SendOrderStatusJobService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../mobile/SwahiliCuisine/app/src/main/res/drawable/ic_notifications.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/bin/www" beforeDir="false" afterPath="$PROJECT_DIR$/app/bin/www" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/api/order.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/api/order.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/layouts/layout.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/layouts/layout.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/partials/sidebar.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/partials/sidebar.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mobile/SwahiliCuisine/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mobile/SwahiliCuisine/.idea/assetWizardSettings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mobile/SwahiliCuisine/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../mobile/SwahiliCuisine/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mobile/SwahiliCuisine/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mobile/SwahiliCuisine/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mobile/SwahiliCuisine/app/src/main/java/com/android/mumo/swahilicuisine/ConfirmOrderActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../mobile/SwahiliCuisine/app/src/main/java/com/android/mumo/swahilicuisine/ConfirmOrderActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../mobile/SwahiliCuisine/app/src/main/java/com/android/mumo/swahilicuisine/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../mobile/SwahiliCuisine/app/src/main/java/com/android/mumo/swahilicuisine/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../mobile/SwahiliCuisine/app/src/main/java/com/android/mumo/swahilicuisine/fragments/DeliveryLocationFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/../mobile/SwahiliCuisine/app/src/main/java/com/android/mumo/swahilicuisine/fragments/DeliveryLocationFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mobile/SwahiliCuisine/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mobile/SwahiliCuisine/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mobile/SwahiliCuisine/app/src/main/res/layout/nav_header_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mobile/SwahiliCuisine/app/src/main/res/layout/nav_header_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mobile/SwahiliCuisine/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mobile/SwahiliCuisine/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -81,43 +99,47 @@
     <session id="-1125027320">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="4" />
+          <entry key="project.closed" value="5" />
           <entry key="project.open.time.28" value="1" />
+          <entry key="project.open.time.42" value="1" />
+          <entry key="project.open.time.45" value="1" />
           <entry key="project.open.time.46" value="1" />
           <entry key="project.open.time.47" value="1" />
           <entry key="project.open.time.53" value="1" />
-          <entry key="project.opened" value="4" />
+          <entry key="project.opened" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="css" value="1" />
-          <entry key="hbs" value="34" />
+          <entry key="hbs" value="37" />
           <entry key="jpg" value="4" />
-          <entry key="js" value="40" />
+          <entry key="js" value="45" />
+          <entry key="www" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CSS" value="1" />
           <entry key="HTML" value="3" />
-          <entry key="Handlebars/Mustache" value="31" />
+          <entry key="Handlebars/Mustache" value="34" />
           <entry key="Image" value="4" />
-          <entry key="JavaScript" value="40" />
+          <entry key="JavaScript" value="46" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="hbs" value="5267" />
-          <entry key="js" value="4875" />
+          <entry key="hbs" value="5551" />
+          <entry key="js" value="5588" />
           <entry key="txt" value="18" />
+          <entry key="www" value="27" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="HTML" value="75" />
-          <entry key="Handlebars/Mustache" value="5192" />
-          <entry key="JavaScript" value="4875" />
+          <entry key="Handlebars/Mustache" value="5476" />
+          <entry key="JavaScript" value="5615" />
           <entry key="PLAIN_TEXT" value="18" />
         </counts>
       </usages-collector>
@@ -125,20 +147,65 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/layouts/layout.hbs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="5" column="26" lean-forward="true" selection-start-line="5" selection-start-column="26" selection-end-line="5" selection-end-column="26" />
+            <state relative-caret-position="208">
+              <caret line="69" column="17" selection-start-line="69" selection-start-column="17" selection-end-line="69" selection-end-column="17" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/dashboard.hbs">
+        <entry file="file://$PROJECT_DIR$/app/views/partials/sidebar.hbs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="123">
-              <caret line="105" column="69" selection-start-line="105" selection-start-column="60" selection-end-line="105" selection-end-column="69" />
+            <state relative-caret-position="432">
+              <caret line="86" selection-start-line="86" selection-end-line="86" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/app.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="288">
+              <caret line="24" column="12" selection-start-line="24" selection-start-column="12" selection-end-line="24" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/routes/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="336">
+              <caret line="135" column="10" lean-forward="true" selection-start-line="135" selection-start-column="10" selection-end-line="135" selection-end-column="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/controllers/orders.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="336">
+              <caret line="160" column="19" selection-start-line="160" selection-start-column="19" selection-end-line="160" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/admin/order_details.hbs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="226">
+              <caret line="128" column="52" selection-start-line="128" selection-start-column="43" selection-end-line="128" selection-end-column="52" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/api/order.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="416">
+              <caret line="36" column="38" lean-forward="true" selection-start-line="36" selection-start-column="38" selection-end-line="36" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -171,7 +238,6 @@
         <option value="$PROJECT_DIR$/app/package.json" />
         <option value="$PROJECT_DIR$/app/config/passport.js" />
         <option value="$PROJECT_DIR$/app/models/user.js" />
-        <option value="$PROJECT_DIR$/app/app.js" />
         <option value="$PROJECT_DIR$/app/routes/auth.api.js" />
         <option value="$PROJECT_DIR$/app/middleware/check_auth.js" />
         <option value="$PROJECT_DIR$/app/models/admin.js" />
@@ -187,26 +253,28 @@
         <option value="$PROJECT_DIR$/app/controllers/restaurant.js" />
         <option value="$PROJECT_DIR$/app/views/admin/locations-d.hbs" />
         <option value="$PROJECT_DIR$/app/views/admin/orders.hbs" />
-        <option value="$PROJECT_DIR$/app/controllers/orders.js" />
         <option value="$PROJECT_DIR$/app/views/admin/order_details.hbs" />
         <option value="$PROJECT_DIR$/app/models/blog.js" />
         <option value="$PROJECT_DIR$/app/views/admin/blog-create.hbs" />
         <option value="$PROJECT_DIR$/app/views/admin/blog-edit.hbs" />
         <option value="$PROJECT_DIR$/app/views/admin/blog-show.hbs" />
         <option value="$PROJECT_DIR$/app/views/admin/blog.hbs" />
-        <option value="$PROJECT_DIR$/app/views/partials/sidebar.hbs" />
         <option value="$PROJECT_DIR$/app/models/book.js" />
         <option value="$PROJECT_DIR$/app/sequelize.js" />
         <option value="$PROJECT_DIR$/app/controllers/blog.js" />
-        <option value="$PROJECT_DIR$/app/routes/index.js" />
         <option value="$PROJECT_DIR$/app/views/admin/books.hbs" />
         <option value="$PROJECT_DIR$/app/controllers/book.js" />
         <option value="$PROJECT_DIR$/app/routes/api.js" />
         <option value="$PROJECT_DIR$/app/controllers/api/blog.js" />
         <option value="$PROJECT_DIR$/app/views/admin/delivery_locations.hbs" />
-        <option value="$PROJECT_DIR$/app/controllers/api/order.js" />
         <option value="$PROJECT_DIR$/app/controllers/api/menu.js" />
+        <option value="$PROJECT_DIR$/app/views/partials/sidebar.hbs" />
+        <option value="$PROJECT_DIR$/app/app.js" />
+        <option value="$PROJECT_DIR$/app/bin/www" />
+        <option value="$PROJECT_DIR$/app/routes/index.js" />
         <option value="$PROJECT_DIR$/app/views/layouts/layout.hbs" />
+        <option value="$PROJECT_DIR$/app/controllers/api/order.js" />
+        <option value="$PROJECT_DIR$/app/controllers/orders.js" />
       </list>
     </option>
   </component>
@@ -254,6 +322,31 @@
               <item name="backend" type="b2602c69:ProjectViewProjectNode" />
               <item name="backend" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="bin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="controllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="routes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -261,7 +354,14 @@
               <item name="backend" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="layouts" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="partials" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -279,13 +379,14 @@
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\food ordering app\backend\app\views\layouts" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\food-ordering-app\backend\app\public\js" />
       <recent name="E:\food-ordering-app\backend\app\views\admin" />
       <recent name="E:\food ordering app\backend\app\public\js" />
       <recent name="E:\food ordering app\backend\app\public" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\food ordering app\backend\app\views\layouts" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -330,6 +431,8 @@
       <workItem from="1549909679607" duration="7975000" />
       <workItem from="1550142297198" duration="13701000" />
       <workItem from="1550335923197" duration="1137000" />
+      <workItem from="1550391704445" duration="717000" />
+      <workItem from="1550396327380" duration="10525000" />
     </task>
     <task id="LOCAL-00001" summary="bootstrapping application">
       <created>1548254507870</created>
@@ -433,7 +536,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="134611000" />
+    <option name="totallyTimeSpent" value="145853000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -446,6 +549,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -511,10 +615,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="blog functionality" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/views/login.hbs">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/public/images/1548613610281-cuisine-2248567__340.jpg" />
     <entry file="file://$PROJECT_DIR$/app/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="16">
@@ -536,13 +636,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="128">
           <caret line="8" column="31" lean-forward="true" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="47" column="37" lean-forward="true" selection-start-line="47" selection-start-column="37" selection-end-line="47" selection-end-column="37" />
         </state>
       </provider>
     </entry>
@@ -640,13 +733,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/admin/order_details.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="20" column="15" lean-forward="true" selection-start-line="20" selection-start-column="15" selection-end-line="20" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/models/admin.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="48">
@@ -675,13 +761,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/partials/header.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="551">
-          <caret line="52" column="66" selection-start-line="52" selection-start-column="66" selection-end-line="52" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/models/book.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="192">
@@ -693,13 +772,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="352">
           <caret line="40" selection-start-line="39" selection-end-line="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/partials/sidebar.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="44" column="40" selection-start-line="44" selection-start-column="40" selection-end-line="44" selection-end-column="40" />
         </state>
       </provider>
     </entry>
@@ -763,16 +835,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="112">
           <caret line="28" column="49" selection-start-line="28" selection-start-column="49" selection-end-line="28" selection-end-column="49" />
-          <folding>
-            <element signature="n#div#1;n#!!top" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/orders.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="159" column="38" lean-forward="true" selection-start-line="159" selection-start-column="38" selection-end-line="159" selection-end-column="38" />
         </state>
       </provider>
     </entry>
@@ -787,20 +849,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="96">
           <caret line="9" column="26" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/api/order.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="14" column="25" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/routes/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="120" column="75" selection-start-line="120" selection-start-column="75" selection-end-line="120" selection-end-column="75" />
         </state>
       </provider>
     </entry>
@@ -825,26 +873,82 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-4224">
           <caret line="327" column="15" selection-start-line="327" selection-start-column="15" selection-end-line="327" selection-end-column="15" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/forgot-password.hbs">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/public/js/socket.io.slim.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/partials/header.hbs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="530">
+          <caret line="52" column="66" selection-start-line="52" selection-start-column="66" selection-end-line="52" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/bin/www">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="24" column="18" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/dashboard.hbs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
-          <caret line="105" column="69" selection-start-line="105" selection-start-column="60" selection-end-line="105" selection-end-column="69" />
+        <state relative-caret-position="80">
+          <caret line="77" column="61" lean-forward="true" selection-start-line="77" selection-start-column="61" selection-end-line="77" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/partials/sidebar.hbs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="86" selection-start-line="86" selection-end-line="86" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/routes/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="135" column="10" lean-forward="true" selection-start-line="135" selection-start-column="10" selection-end-line="135" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="24" column="12" selection-start-line="24" selection-start-column="12" selection-end-line="24" selection-end-column="12" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/layouts/layout.hbs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="5" column="26" lean-forward="true" selection-start-line="5" selection-start-column="26" selection-end-line="5" selection-end-column="26" />
+        <state relative-caret-position="208">
+          <caret line="69" column="17" selection-start-line="69" selection-start-column="17" selection-end-line="69" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/api/order.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="416">
+          <caret line="36" column="38" lean-forward="true" selection-start-line="36" selection-start-column="38" selection-end-line="36" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/admin/order_details.hbs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="128" column="52" selection-start-line="128" selection-start-column="43" selection-end-line="128" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/orders.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="160" column="19" selection-start-line="160" selection-start-column="19" selection-end-line="160" selection-end-column="19" />
         </state>
       </provider>
     </entry>

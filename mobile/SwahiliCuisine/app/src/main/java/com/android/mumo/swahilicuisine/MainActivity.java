@@ -181,6 +181,7 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
             PreferenceUtils.deleteUser(this);
+            //enable navmenu item
             Menu menuNav = navigationView.getMenu();
             MenuItem accountMenuItem = menuNav.findItem(R.id.nav_account);
             accountMenuItem.setEnabled(true);

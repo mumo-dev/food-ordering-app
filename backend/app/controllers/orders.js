@@ -159,8 +159,16 @@ module.exports = {
 
         Order.update(values, selector)
             .then(() => {
-                req.flash('successMessage', 'Order Status updated Successfully');
-                res.redirect('/orders/' + req.body.orderId);
+
+                Order.findById(req.body.orderId).then(order=>{
+                    console.log(order );
+                    req.io.emit('orderstatus'+order.userId,
+                        'Your Order #'+ order.id + ' has been '+ order.status
+                    );
+                    req.flash('successMessage', 'Order Status updated Successfully');
+                    res.redirect('/orders/' + req.body.orderId);
+                })
+
             })
     }
 }

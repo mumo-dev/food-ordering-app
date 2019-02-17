@@ -37,4 +37,5 @@
         HTML string in an Android TextView. However, this approach has major limitations, a
         nd you’ll probably want to display your HTML in a WebView instead.
     </string>
+    <string name="reminder_channel_description">reminds of your order status</string>
 </resources>

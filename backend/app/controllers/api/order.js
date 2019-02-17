@@ -21,17 +21,21 @@ module.exports = {
             deliveryCost: req.body.cost
         }).then(order => {
 
-            console.log(orderItems);
             orderItems.forEach(function (item) {
                 item['orderId'] = order.id
             });
             console.log(orderItems);
             OrderItems.bulkCreate(orderItems)
                 .then(itemsOrdered => {
-                    return res.status(200).json({
+
+                    req.io.emit('neworder', 1);
+                    const data = {
+                        id:order.id,
                         message: 'Order Placed successfully',
                         items: itemsOrdered
-                    })
+                    };
+                    console.log(data);
+                    return res.status(200).json(data)
                 })
                 .catch(err => {
                     return res.status(500).json({
