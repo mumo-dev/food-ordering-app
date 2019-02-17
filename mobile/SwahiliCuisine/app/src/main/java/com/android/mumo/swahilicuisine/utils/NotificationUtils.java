@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.android.mumo.swahilicuisine.ConfirmOrderActivity;
@@ -31,10 +32,12 @@ public class NotificationUtils {
         }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
+                .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
                 .setContentTitle("Order Status")
                 .setContentText(notificationMessage)
                 .setSmallIcon(R.drawable.ic_notifications)
                 .setContentIntent(contentIntent(context))
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(notificationMessage))
                 .setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
