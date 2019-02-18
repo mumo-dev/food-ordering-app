@@ -21,8 +21,10 @@
     "morgan": "~1.9.0",
     "multer": "^1.4.1",
     "mysql2": "^1.6.4",
+    "nodemailer": "^5.1.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
+    "pusher-push-notifications-node": "^0.10.3",
     "sequelize": "^4.42.0",
     "sharp": "^0.21.3",
     "socket.io": "^2.2.0"

@@ -6,13 +6,15 @@ const Restaurant = require('../sequelize').Restaurant;
 const Order = require('../sequelize').Order;
 const OrderItems = require('../sequelize').OrderItems;
 
+
 const moment = require('moment');
+const PushNotifications = require('pusher-push-notifications-node');
 
 module.exports = {
 
     index(req, res) {
 
-         Order.findAll({
+        Order.findAll({
             include: [{
                 model: OrderItems,
                 include: [{
@@ -27,7 +29,7 @@ module.exports = {
                     model: Area,
                     include: Town
                 }],
-                order: [['id', 'DESC']]
+            order: [['id', 'DESC']]
         }).then(orders => {
             const pOrders = [];
             orders.forEach(function (order) {
@@ -148,7 +150,7 @@ module.exports = {
         })
     },
 
-    updateOrderStatus(req, res){
+    updateOrderStatus(req, res) {
         const values = {
             status: req.body.status
         };
@@ -160,15 +162,37 @@ module.exports = {
         Order.update(values, selector)
             .then(() => {
 
-                Order.findById(req.body.orderId).then(order=>{
-                    console.log(order );
-                    req.io.emit('orderstatus'+order.userId,
-                        'Your Order #'+ order.id + ' has been '+ order.status
-                    );
-                    req.flash('successMessage', 'Order Status updated Successfully');
-                    res.redirect('/orders/' + req.body.orderId);
-                })
+                let pushNotifications = new PushNotifications({
+                    instanceId: 'f00f783a-c8e8-415b-89d7-83f906a2b258',
+                    secretKey: '3E931B71E19577771396295A186F0687D0E270FC1A6954CFCD4ECA06349EAC89'
+                });
 
+                const notificationMsg = 'Your Order #' + order.id + ' has been ' + order.status;
+                const channel = 'orderstatus' + order.userId;
+                pushNotifications.publish(
+                    [channel],
+                    {
+                        fcm: {
+                            notification: {
+                                title: 'Order Status',
+                                body: notificationMsg
+                            }
+                        }
+
+                    }).then((publishResponse) => {
+                    console.log('Just published:', publishResponse.publishId);
+                }).catch((error) => {
+                    console.log('Error:', error);
+                });
+
+
+                /*req.io.emit('orderstatus' + order.userId,
+                    'Your Order #' + order.id + ' has been ' + order.status
+                );*/
+                req.flash('successMessage', 'Order Status updated Successfully');
+                res.redirect('/orders/' + req.body.orderId);
             })
+
     }
+
 }

@@ -8,7 +8,7 @@
             <li class="breadcrumb-item">
                 <a href="">Admin</a>
             </li>
-            <li class="breadcrumb-item "> <a href="/orders">Orders</a></li>
+            <li class="breadcrumb-item "><a href="/orders">Orders</a></li>
             <li class="breadcrumb-item active">Details</li>
 
         </ol>
@@ -28,78 +28,96 @@
 
         <div class="card pt-4">
             <div class="card-title pl-4">
-                <span class="text-success" style="font-weight: bolder;font-size: 18px">ORDER NO: {{{order.id}}} </span>
-                <span class="pl-5 text-success">  ordered at: {{{ order.createdAt}}}</span>
+                <div class="row">
+                    <div class="col-md-12">
+                        <span class="text-success"
+                              style="font-weight: bolder;font-size: 18px">ORDER NO: {{{order.id}}} </span>
+                    </div>
+                    <div class="col-md-12">
+                        <span class="pl-5 text-success">  ordered at: {{{ order.createdAt}}}</span>
+                    </div>
+                </div>
+
             </div>
             <div class="card-body">
-                <table class="table table-light w-75">
-                    <thead></thead>
-                    <tbody>
-                    <tr>
-                        <td class="text-info">Status:</td>
-                        <td>{{{ order.status}}}</td>
-                        <td> <button class="btn btn-success" data-toggle="modal" data-target="#updateOrderStatus"> UPDATE</button> </td>
-                    </tr>
-                    <tr>
-                        <td class="text-info" >Customer Name:</td>
-                        <td>{{{ order.userName}}}</td>
-                        <td class="text-info">Customer Phone:</td>
-                        <td>{{{ order.userPhone}}}</td>
-
-                    </tr>
-
-                    <tr>
-                        <td class="text-info">Location:</td>
-                        <td>{{{ order.town}}} - {{{ order.area}}}</td>
-                        <td class="text-info">Restaurant:</td>
-                        <td>{{{ order.restaurant }}}</td>
-                    </tr>
-
-                    </tbody>
-                </table>
-                <div class="card-text mt-3">
-                    <span class="text-success" style="font-weight: bolder;font-size: 18px"> Menu Items Ordered</span>
-                    <table class="table table-light">
-                        <thead>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Total</th>
-                        </thead>
+                <div class="table-responsive">
+                    <table class="table table-light w-75">
+                        <thead></thead>
                         <tbody>
-                        {{#each order.orderItems}}
-                            <tr>
-                                <td>{{{this.menuName}}}</td>
-                                <td>{{{ this.price}}}</td>
-                                <td>{{{ this.quantity}}}</td>
-                                <td>{{{ this.subTotal}}}</td>
-                            </tr>
-                        {{/each}}
+                        <tr>
+                            <td class="text-info">Status:</td>
+                            <td>{{{ order.status}}}</td>
+                            <td>
+                                <button class="btn btn-success" data-toggle="modal" data-target="#updateOrderStatus">
+                                    UPDATE
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-info">Customer Name:</td>
+                            <td>{{{ order.userName}}}</td>
+                            <td class="text-info">Customer Phone:</td>
+                            <td>{{{ order.userPhone}}}</td>
+
+                        </tr>
 
                         <tr>
-                            <td class="text-info"> Delivery Cost:</td>
-                            <td></td><td></td>
-                            <td style="font-weight: bold">Kshs {{{ order.deliveryCost }}}</td>
+                            <td class="text-info">Location:</td>
+                            <td>{{{ order.town}}} - {{{ order.area}}}</td>
+                            <td class="text-info">Restaurant:</td>
+                            <td>{{{ order.restaurant }}}</td>
                         </tr>
-                        <tr>
-                            <td class="text-info"> Sub-Total:</td>
-                            <td></td><td></td>
-                            <td style="font-weight: bold">Kshs {{{ order.totalCost }}}</td>
-                        </tr>
-                        <tr>
-                            <td class="text-info"> Total:</td>
-                            <td></td><td></td>
-                            <td style="font-weight: bold"> Kshs {{ order.cost }} </td>
-                        </tr>
+
                         </tbody>
                     </table>
+                </div>
+                <div class="card-text mt-3">
+                    <span class="text-success" style="font-weight: bolder;font-size: 18px"> Menu Items Ordered</span>
+                    <div class="table-responsive">
+                        <table class="table table-light">
+                            <thead>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            </thead>
+                            <tbody>
+                            {{#each order.orderItems}}
+                                <tr>
+                                    <td>{{{this.menuName}}}</td>
+                                    <td>{{{ this.price}}}</td>
+                                    <td>{{{ this.quantity}}}</td>
+                                    <td>{{{ this.subTotal}}}</td>
+                                </tr>
+                            {{/each}}
+
+                            <tr>
+                                <td class="text-info"> Delivery Cost:</td>
+                                <td></td>
+                                <td></td>
+                                <td style="font-weight: bold">Kshs {{{ order.deliveryCost }}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-info"> Sub-Total:</td>
+                                <td></td>
+                                <td></td>
+                                <td style="font-weight: bold">Kshs {{{ order.totalCost }}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-info"> Total:</td>
+                                <td></td>
+                                <td></td>
+                                <td style="font-weight: bold"> Kshs {{ order.cost }} </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
 
     </div>
 </div>
-
 
 
 <!--modal-->

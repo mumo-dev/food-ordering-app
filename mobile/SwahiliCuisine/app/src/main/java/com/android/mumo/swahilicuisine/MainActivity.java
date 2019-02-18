@@ -28,6 +28,7 @@ import com.android.mumo.swahilicuisine.interfaces.OnRestaurantClickListener;
 import com.android.mumo.swahilicuisine.model.Restaurant;
 import com.android.mumo.swahilicuisine.model.User;
 import com.android.mumo.swahilicuisine.utils.PreferenceUtils;
+import com.pusher.pushnotifications.PushNotifications;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnLocationSetListener, OnRestaurantClickListener {
@@ -44,17 +45,18 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        navigationView= (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         Menu menuNav = navigationView.getMenu();
         MenuItem accountMenuItem = menuNav.findItem(R.id.nav_account);
         User user = PreferenceUtils.getUserDetails(this);
-        if(user != null){
+        if (user != null) {
             accountMenuItem.setEnabled(false);
         }
         navigationView.setNavigationItemSelectedListener(this);
@@ -63,18 +65,18 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction = fragmentManager.beginTransaction();
 
         Intent intent = getIntent();
-        if(intent!= null){
+        if (intent != null) {
             String fromOrders = intent.getStringExtra(ConfirmOrderActivity.EXTRA_FROM_CONFIRM_ORDER);
-            if("yes".equals(fromOrders)){
+            if ("yes".equals(fromOrders)) {
                 OrderFragment orderFragment = new OrderFragment();
                 fragmentTransaction.replace(R.id.fragment_container, orderFragment);
                 fragmentTransaction.commit();
-            }else {
+            } else {
                 DeliveryLocationFragment deliveryLocationFragmentFragement = new DeliveryLocationFragment();
                 fragmentTransaction.add(R.id.fragment_container, deliveryLocationFragmentFragement);
                 fragmentTransaction.commit();
             }
-        }else {
+        } else {
 
 
             DeliveryLocationFragment deliveryLocationFragmentFragement = new DeliveryLocationFragment();
@@ -96,7 +98,7 @@ public class MainActivity extends AppCompatActivity
             String tag = backEntry.getName();
 //            Fragment fragment = getSupportFragmentManager().findFragmentByTag(tag);
             if (tag.equals("menu")) {
-                MenuFragment fragment=(MenuFragment)getSupportFragmentManager().findFragmentByTag("menu");
+                MenuFragment fragment = (MenuFragment) getSupportFragmentManager().findFragmentByTag("menu");
 //                    dialoger();
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
 // Add the buttons
@@ -137,7 +139,7 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    public void dialoger(){
+    public void dialoger() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
 // Add the buttons
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -159,6 +161,7 @@ public class MainActivity extends AppCompatActivity
         dialog.show();
 //                return;
     }
+
     @Override
     protected void onStop() {
         super.onStop();
@@ -215,7 +218,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_book) {
             RecipeBooksFragment fragment = new RecipeBooksFragment();
             replaceFragment(fragment, "books");
-        } else if(id == R.id.nav_account){
+        } else if (id == R.id.nav_account) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }

@@ -52,4 +52,7 @@ public interface ApiService {
 
     @GET("api/books")
     Call<List<RecipeBook>> fetchRecipeBooks();
+
+    @POST("api/forgot-password")
+    Call<JSONObject> forgotPassword(@Body User user);
 }

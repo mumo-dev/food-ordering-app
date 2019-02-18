@@ -56,24 +56,30 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.android.mumo.swahilicuisine.MainActivity" />
         </activity>
-
         <activity
             android:name=".BlogDetailActivity"
-            android:parentActivityName=".MainActivity"
-            android:label="Blog Post">
+            android:label="Blog Post"
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.android.mumo.swahilicuisine.MainActivity" />
         </activity>
 
-
         <service
-            android:exported="false"
-            android:name=".utils.SendOrderStatusJobService">
+            android:name=".utils.SendOrderStatusJobService"
+            android:exported="false">
             <intent-filter>
-                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
             </intent-filter>
         </service>
+
+        <activity android:name=".ForgotPassword"
+            android:label="Forgot Password"
+            android:parentActivityName=".LoginActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.android.mumo.swahilicuisine.LoginActivity" />
+        </activity>
     </application>
 
 </manifest>

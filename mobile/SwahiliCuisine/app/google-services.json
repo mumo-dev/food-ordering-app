@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "923362872241",
+    "firebase_url": "https://swahili-cuisine.firebaseio.com",
+    "project_id": "swahili-cuisine",
+    "storage_bucket": "swahili-cuisine.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:923362872241:android:15b658a1b31bb71a",
+        "android_client_info": {
+          "package_name": "com.android.mumo.swahilicuisine"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "923362872241-ffcnhf6lqis8mf8rcm2u1rssbl85it9o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuExzjnYAX8GhkgCfPnf0VSZ20DVUd8PM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

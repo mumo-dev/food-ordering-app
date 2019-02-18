@@ -35,6 +35,7 @@ var adminController = require('../controllers/admin');
 var restaurantController = require('../controllers/restaurant');
 var ordersController = require('../controllers/orders');
 var blogController = require('../controllers/blog');
+var forgetController = require('../controllers/forgot');
 var bookController = require('../controllers/book');
 var Order = require('../sequelize').Order;
 var router = express.Router();
@@ -47,6 +48,12 @@ router.get('/', function (req, res, next) {
 router.get('/login', (function (req, res) {
     res.render('login', {message: req.flash('loginMessage')});
 }));
+
+router.get('/forgot-password', forgetController.showforgetPassowrdView);
+router.post('/forgot-password', forgetController.forgetPassword);
+router.post('/api/forgot-password', forgetController.forgetUserPassword);
+router.get('/reset/:token', forgetController.showResetPasswordView);
+router.post('/reset-password', forgetController.resetPassword);
 
 router.post('/login', passport.authenticate('local-signin', {
     successRedirect: '/dashboard',

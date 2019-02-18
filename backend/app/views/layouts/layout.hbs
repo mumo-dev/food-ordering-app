@@ -24,7 +24,7 @@
     <link href="/css/sb-admin.css" rel="stylesheet">
 
 
-    <script src="https://cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script defer src="https://cdn.tinymce.com/4/tinymce.min.js"></script>
     <script>tinymce.init({selector: '#tdescription'});</script>
 
 </head>
@@ -32,7 +32,11 @@
 <body id="page-top">
 
 <!-- nav-->
-{{> header }}
+
+{{#if header }}
+    {{>header }}
+{{/if}}
+
 
 <!-- /#wrapper -->
 <div id="wrapper">

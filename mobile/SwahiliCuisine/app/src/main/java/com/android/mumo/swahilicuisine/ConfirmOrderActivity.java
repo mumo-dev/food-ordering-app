@@ -41,7 +41,7 @@ import java.util.Map;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
+import com.pusher.pushnotifications.PushNotifications;
 public class ConfirmOrderActivity extends AppCompatActivity {
 
     private static final String TAG = "ConfirmOrderActivity";
@@ -49,6 +49,8 @@ public class ConfirmOrderActivity extends AppCompatActivity {
     private TextView mUserNameTv, mUserPhoneTv, mUserLocationTv, mErrorTextView;
     private Button mPlaceOrderButton;
     private ProgressBar mProgressBar;
+
+
 
     public static final String EXTRA_FROM_COONFIRM_ORDER = "com.android.mumo.swahilicuisine.confrim.orders";
     public static final String EXTRA_FROM_CONFIRM_ORDER = "com.android.mumo.swahilicuisine.confirm.orders";
@@ -58,6 +60,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_order);
+
 
         mUserNameTv = findViewById(R.id.tv_user_name);
         mUserPhoneTv = findViewById(R.id.tv_user_phone);
@@ -154,20 +157,12 @@ public class ConfirmOrderActivity extends AppCompatActivity {
                 mProgressBar.setVisibility(View.INVISIBLE);
                 Log.i(TAG, "onResponse: " + response.message());
                 if (response.isSuccessful() && response.code() == 200) {
-                    //delete order in shared preferences
-                   /* int orderId =0;
-                    String message ="";
-                    try {
-                        JSONObject object = response.body();
-                        orderId = object.getInt("id");
-                        message = object.getString("message");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                   Log.i(TAG, "onResponse id: "+orderId + " message"+ message);*/
 
                    //orderstatus'+order.userId
-                    scheduleANotificationService("orderstatus"+user.getId());
+//                    scheduleANotificationService("orderstatus"+user.getId());
+
+                    PushNotifications.start(getApplicationContext(), "f00f783a-c8e8-415b-89d7-83f906a2b258");
+                    PushNotifications.subscribe("orderstatus"+user.getId());
 
                     PreferenceUtils.deleteOrder(ConfirmOrderActivity.this);
                     mErrorTextView.setVisibility(View.INVISIBLE);
