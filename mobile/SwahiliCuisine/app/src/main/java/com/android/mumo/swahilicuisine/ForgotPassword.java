@@ -43,7 +43,7 @@ public class ForgotPassword extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String email = mEmailfield.getText().toString();
-                if (!TextUtils.isEmpty(email) && email != null) {
+                if (!TextUtils.isEmpty(email)) {
                     User user = new User();
                     user.setEmail(email);
 

@@ -87,7 +87,7 @@ module.exports = {
         const token = req.params.token;
         const id = req.query.id;
 
-        res.render('reset-password', {token, id})
+        res.render('reset-password', {token, id,header: 'show'})
 
     }
     ,

@@ -1,6 +1,7 @@
 var express = require('express');
 var passport = require('passport');
 var sharp = require('sharp');
+const { Op } = require('sequelize')
 
 var multer = require('multer');
 
@@ -116,10 +117,11 @@ router.get('/orders/:id', ordersController.findOrderUsingIndex);
 router.post('/updateOrderStatus', ordersController.updateOrderStatus);
 
 router.get('/blog', blogController.index);
+router.get('/blog/create', blogController.showCreateView);
 router.get('/blog/:id', blogController.showBlogItem);
 router.get('/blog/edit/:id', blogController.edit);
 router.get('/blog/delete/:id', blogController.delete);
-router.get('/blog/create', blogController.showCreateView);
+
 router.post('/blog', blogController.create);
 router.post('/blog/update', blogController.update);
 
@@ -137,6 +139,20 @@ router.get('/logout', function (req, res) {
 router.get('/orders-count', (req, res)=>{
     Order.findAll({
         where: { status: 'placed'}
+    }).then(orders=>{
+        return res.status(200).json({
+            count: orders.length
+        })
+    });
+});
+
+router.get('/orders-for-today', (req, res)=>{
+    Order.findAll({
+        where: {
+            createdAt: {
+                [Op.gt]:new Date() - 24 * 60 * 60 * 1000
+            }
+        }
     }).then(orders=>{
         return res.status(200).json({
             count: orders.length
