@@ -16,7 +16,8 @@
         style="@style/TextAppearance.AppCompat.Headline"
         android:textSize="18sp"
         android:paddingBottom="2dp"
-        android:textStyle="italic"/>
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/blog_date"

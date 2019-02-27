@@ -158,11 +158,13 @@ public class OrderDetailsFragment extends BottomSheetDialogFragment implements O
         } else if (action.equals("minus")) {
             //Toast.makeText(getContext(), "minus at item pos " + index, Toast.LENGTH_LONG).show();
             OrderItem item = order.getItems().get(index);
-            if (item.getQuantity() == 1) {
-                item.setQuantity(0);
+            if(item.getQuantity() >= 1) {
+                if (item.getQuantity() == 1) {
+                    item.setQuantity(0);
 //                order.getItems().remove(index);
-            } else {
-                item.setQuantity(item.getQuantity() - 1);
+                } else {
+                    item.setQuantity(item.getQuantity() - 1);
+                }
             }
 //            updateUI();
         } else if (action.equals("remove")) {
