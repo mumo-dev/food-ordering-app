@@ -7,6 +7,7 @@ public class Orderjst {
     private int userId;
     private int areaId;
     private double cost;
+    private String deliveryTime;
     private List<Menujst> items;
 
     public Orderjst() {
@@ -42,5 +43,13 @@ public class Orderjst {
 
     public void setAreaId(int areaId) {
         this.areaId = areaId;
+    }
+
+    public String getDeliveryTime() {
+        return deliveryTime;
+    }
+
+    public void setDeliveryTime(String deliveryTime) {
+        this.deliveryTime = deliveryTime;
     }
 }

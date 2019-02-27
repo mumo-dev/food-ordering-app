@@ -3,6 +3,7 @@ package com.android.mumo.swahilicuisine.adapters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,8 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
     private Context context;
     private List<RestaurantApiData> restaurantApiData;
     OnRestaurantSelectedListener listener;
+
+    public static final String TAG = "RestaurantAdapter";
 
     public RestaurantAdapter(Context context, OnRestaurantSelectedListener listener) {
         this.context = context;
@@ -77,6 +80,8 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
             Glide.with(context)
                     .load(RetrofitClient.BASE_URL + "images/" + data.getRestaurant().getImageUrl())
                     .into(imageView);
+
+           // Log.i(TAG, "bind: "+ RetrofitClient.BASE_URL + "images/" + data.getRestaurant().getImageUrl());
         }
 
         @Override

@@ -84,7 +84,7 @@
         android:text="Oops! something went wrong \n
                 Click to retry"
         android:textColor="@android:color/white"
-        android:visibility="invisible" />
+        android:visibility="visible" />
 
 
 </FrameLayout>

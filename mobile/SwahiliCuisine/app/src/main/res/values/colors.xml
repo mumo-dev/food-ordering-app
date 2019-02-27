@@ -10,4 +10,6 @@
     <color name="greyDisabled">#61000000</color>
     <color name="blue">#0000ff</color>
 
+    <color name="bg_splash">#f0ffff</color>
+
 </resources>

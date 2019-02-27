@@ -20,15 +20,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.mumo.swahilicuisine.ConfirmOrderActivity;
+import com.android.mumo.swahilicuisine.LoginActivity;
 import com.android.mumo.swahilicuisine.R;
 import com.android.mumo.swahilicuisine.adapters.OrderAdapter;
 import com.android.mumo.swahilicuisine.model.Menu;
 import com.android.mumo.swahilicuisine.model.Order;
 import com.android.mumo.swahilicuisine.model.OrderItem;
+import com.android.mumo.swahilicuisine.model.User;
 import com.android.mumo.swahilicuisine.utils.PreferenceUtils;
 import com.android.mumo.swahilicuisine.viewmodel.OrderViewModel;
 
 import org.w3c.dom.Text;
+
+import static com.android.mumo.swahilicuisine.ConfirmOrderActivity.EXTRA_FROM_COONFIRM_ORDER;
 
 public class OrderDetailsFragment extends BottomSheetDialogFragment implements OrderAdapter.OnItemModified {
 
@@ -103,8 +107,16 @@ public class OrderDetailsFragment extends BottomSheetDialogFragment implements O
                 }
                 //save order
                 PreferenceUtils.storeUserOrder(getContext(), order);
-                Intent intent = new Intent(getContext(), ConfirmOrderActivity.class);
-                startActivity(intent);
+                User user = PreferenceUtils.getUserDetails(getActivity());
+                if (user == null) {
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    intent.putExtra(EXTRA_FROM_COONFIRM_ORDER, 100);
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(getContext(), ConfirmOrderActivity.class);
+                    startActivity(intent);
+                }
+
             }
         });
 

@@ -102,4 +102,14 @@ public class PreferenceUtils {
         sharedPref.edit().remove("order").apply();
     }
 
+    public static void deleteLocation(Context context){
+        SharedPreferences sharedPref = context.getSharedPreferences(PREFERENCE_KEY_FILE, Context.MODE_PRIVATE);
+        sharedPref.edit().remove("location_name").apply();
+        sharedPref.edit().remove("location_id").apply();
+        sharedPref.edit().remove("location_area_name").apply();
+        sharedPref.edit().remove("location_area_id").apply();
+    }
+
+
+
 }

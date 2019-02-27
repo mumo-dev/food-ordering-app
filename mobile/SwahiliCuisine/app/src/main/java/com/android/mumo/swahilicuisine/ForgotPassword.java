@@ -2,6 +2,7 @@ package com.android.mumo.swahilicuisine;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -41,7 +42,7 @@ public class ForgotPassword extends AppCompatActivity {
 
         mResetButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 String email = mEmailfield.getText().toString();
                 if (!TextUtils.isEmpty(email)) {
                     User user = new User();
@@ -57,6 +58,11 @@ public class ForgotPassword extends AppCompatActivity {
                             uiLoaded();
                             if(response.isSuccessful() && response.code() ==200){
                                 showAlertDialog();
+                            }
+
+                            if(response.code() ==404){
+                                Snackbar.make(v,"No account exists uses that email",Snackbar.LENGTH_LONG)
+                                        .show();
                             }
                         }
 

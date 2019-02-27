@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="@color/lightBlue"/>
+    <item android:drawable="@color/bg_splash"/>
 
     <!-- set th background image-->
 
 
-    <item android:gravity="center" android:width="400dp" android:height="500dp">
+    <item android:gravity="center"
+        android:width="200dp" android:height="250dp">
         <bitmap
             android:gravity="fill_horizontal|fill_vertical"
-            android:src="@drawable/logo"/>
+            android:src="@drawable/logo"
+            />
     </item>
 </layer-list>

@@ -106,12 +106,19 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         int userId = user.getId();
         final String token = user.getToken();
         double cost = order.getDeliveryCost();
+        String deliveryTime = order.getDeliveryTime(); //
 
         final Orderjst orderjst = new Orderjst();
+        //modify this class to accept deliveryTime
+        //modify order table , modify store and access method
+        //modify RealOrderClass to accept the  value;
+        //display it in view
+
 
         orderjst.setUserId(userId);
         orderjst.setCost(cost);
         orderjst.setAreaId(areaId);
+        orderjst.setDeliveryTime(deliveryTime);
 
 //            JSONArray menuArray = new JSONArray();
         List<Menujst> menujsts = new ArrayList<>();
@@ -142,7 +149,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         openLoginActivity();
     }
 
-    private void openLoginActivity() {
+    public void openLoginActivity() {
         Intent intent = new Intent(this, LoginActivity.class);
         intent.putExtra(EXTRA_FROM_COONFIRM_ORDER, 100);
         startActivity(intent);

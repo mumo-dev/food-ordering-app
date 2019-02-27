@@ -10,25 +10,25 @@
             android:title="Location" />
         <item
             android:id="@+id/nav_restuarants"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_restaurant"
             android:title="Restaurants" />
         <item
             android:id="@+id/nav_order"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_orders"
             android:title="Orders" />
         <item
             android:id="@+id/nav_blog"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_blog"
             android:title="Blog" />
 
         <item
             android:id="@+id/nav_book"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_library_books"
             android:title="Books" />
 
         <item
             android:id="@+id/nav_account"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_account"
             android:title="Account" />
     </group>
 

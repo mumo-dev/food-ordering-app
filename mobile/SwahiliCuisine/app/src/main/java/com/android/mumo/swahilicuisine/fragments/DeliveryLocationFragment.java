@@ -179,7 +179,7 @@ public class DeliveryLocationFragment extends Fragment {
 
 
     private void uiLoading() {
-//        mainContent.setVisibility(View.INVISIBLE);
+      mainContent.setVisibility(View.INVISIBLE);
         mLoadingIndicator.setVisibility(View.VISIBLE);
         errorTv.setVisibility(View.INVISIBLE);
 
@@ -192,7 +192,7 @@ public class DeliveryLocationFragment extends Fragment {
     }
 
     private void uiError() {
-        mainContent.setVisibility(View.VISIBLE);
+        mainContent.setVisibility(View.INVISIBLE);
         mLoadingIndicator.setVisibility(View.INVISIBLE);
         errorTv.setVisibility(View.VISIBLE);
     }

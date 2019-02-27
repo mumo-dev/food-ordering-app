@@ -21,7 +21,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Customer Name:"
+                android:text="Avg Delivery Time:"
+
                 style="@style/TextAppearance.AppCompat.Headline"
                 android:textColor="@color/greyDisabled"
                 android:textSize="20sp"/>
@@ -31,6 +32,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="3"
                 android:layout_height="wrap_content"
+                android:textAllCaps="true"
                 style="@style/TextAppearance.AppCompat.Headline"
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />

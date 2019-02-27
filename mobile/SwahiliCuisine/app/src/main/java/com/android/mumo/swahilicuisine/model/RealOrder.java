@@ -7,6 +7,7 @@ public class RealOrder implements Serializable {
     private int id;
     private String status;
     private int deliveryCost;
+    private String deliveryTime;
     private String createdAt;
     private int userId;
     private String userName;
@@ -115,5 +116,13 @@ public class RealOrder implements Serializable {
 
     public void setRestaurant(String restaurant) {
         this.restaurant = restaurant;
+    }
+
+    public String getDeliveryTime() {
+        return deliveryTime;
+    }
+
+    public void setDeliveryTime(String deliveryTime) {
+        this.deliveryTime = deliveryTime;
     }
 }

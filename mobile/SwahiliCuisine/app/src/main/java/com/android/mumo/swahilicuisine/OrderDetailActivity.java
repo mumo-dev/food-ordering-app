@@ -56,7 +56,8 @@ public class OrderDetailActivity extends AppCompatActivity {
         deliveryCostTv.setText("Kshs " + order.getDeliveryCost());
         double total = calculateSubTotal() + order.getDeliveryCost();
         totalCostTv.setText("Kshs " + total);
-        cutomerName.setText(" " + order.getUserName());
+
+        cutomerName.setText(" " + order.getDeliveryTime());
         restauranttTv.setText(" " + order.getRestaurant());
 
 
